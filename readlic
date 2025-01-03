@@ -1,0 +1,59 @@
+#!/bin/bash
+
+fileLic=$*
+debug=0
+
+[[ $debug -gt 2 ]] && echo "Obtendo conteudo"
+#lics_content=$(grep --binary-files=text -Evh "^[0-9]+\/[0-9]+\/[0-9]+ +[0-9]+:[0-9]+:[0-9]+ +\-?[0-9]+ +[0-9]+ +0 " $fileLic | tr -d '\0' | grep -E "^[0-9]+\/[0-9]+\/[0-9]+ +[0-9]+:[0-9]+:[0-9]+ +\-?[0-9]+( +[0-9]+){9}$")
+lics_content=$(grep --binary-files=text -Evh "^[0-9]+\/[0-9]+\/[0-9]+ +[0-9]+:[0-9]+:[0-9]+ +\-?[0-9]+ +[0-9]+ +0 " $fileLic | tr -d '\0' | grep -E "^[0-9]+\/[0-9]+\/[0-9]+ +[0-9]+:[0-9]+:[0-9]+ +\-?[0-9]+( +[0-9]+){9}")
+
+[[ $debug -gt 2 ]] && echo "Organizando conteudo"
+lics_content="$(sed -rn "s|^([0-9]+)\/([0-9]+)\/([0-9]+) +([0-9]+):([0-9]+):([0-9]+) +(.*)|\3/\2/\1 \4:\5:\6 \7|p" <<< "$lics_content" | sort -nr)"
+
+first_loop=${#lics_content}
+
+while [[ ${#lics_content} -gt 0 ]]; do
+        [[ $debug -gt 1 ]] && echo -e "\nLoop atual: ${#lics_content}"
+
+        while read data hora cfg cot pico others; do
+                [[ $debug -gt 1 ]] && echo "data: $data hora: $hora cfg: $cfg cot: $cot pico: $pico others: $others"
+
+                [[ $debug -gt 2 ]] && echo "Identificando o pico mais recente"
+                pico_line=$(grep -E "^[0-9]+\/[0-9]+\/[0-9]+ +[0-9]+:[0-9]+:[0-9]+ +\-?[0-9]+ +[0-9]+ +$pico " <<< "$lics_content" | sort -nru | head -n1)
+
+                [[ $debug -gt 2 ]] && echo "Obtendo a data mais recente"
+                last_pico=$(sed -rn "s|^([0-9]+)\/([0-9]+)\/([0-9]+) +([0-9]+):([0-9]+):([0-9]+) +(\-?[0-9]+) +([0-9]+) +([0-9]+) +(.*)|\9|p" <<< $pico_line)
+
+                [[ $debug -gt 2 ]] && echo "Obtendo o cfg mais recente"
+                last_cfg=$(sed -rn "s|^([0-9]+)\/([0-9]+)\/([0-9]+) +([0-9]+):([0-9]+):([0-9]+) +(\-?[0-9]+) +([0-9]+) +([0-9]+) +(.*)|\7|p" <<< $pico_line)
+
+                [[ $debug -gt 2 ]] && echo "Obtendo a data mais recente"
+                last_data=$(sed -rn "s|^([0-9]+)\/([0-9]+)\/([0-9]+) +([0-9]+):([0-9]+):([0-9]+) +(\-?[0-9]+) +([0-9]+) +([0-9]+) +(.*)|\3/\2/\1|p" <<< $pico_line)
+
+                [[ $debug -gt 2 ]] && echo "Obtendo a hora mais recente"
+                last_hora=$(sed -rn "s|^([0-9]+)\/([0-9]+)\/([0-9]+) +([0-9]+):([0-9]+):([0-9]+) +(\-?[0-9]+) +([0-9]+) +([0-9]+) +(.*)|\4:\5:\6|p" <<< $pico_line)
+
+                [[ $debug -ge 1 ]] && [[ $first_loop -eq ${#lics_content} ]] && echo -e "Pico\tCFG\tData\t\tHora"
+
+                if [[ $debug -ge 1 ]]; then
+                        echo -e "$last_pico\t$last_cfg\t$last_data\t$last_hora"
+                else
+                        result="${result}
+$last_pico\t$last_cfg\t$last_data\t$last_hora"
+
+                fi
+
+                # Remove number to analys list
+                [[ $debug -gt 1 ]] && echo "Removenco o pico $pico das analises"
+                lics_content=$(grep -Ev "^[0-9]+\/[0-9]+\/[0-9]+ +[0-9]+:[0-9]+:[0-9]+ +\-?[0-9]+ +[0-9]+ +$pico " <<< "$lics_content")
+
+                break
+
+        done <<< "$lics_content"
+
+        if [[ ${#lics_content} -eq 0 ]]; then
+                echo -e "Pico\tCFG\tData\t\tHora"
+                sort -rn <<< "$result" | sed -r 's/\\t/\t/g'
+        fi
+
+done
