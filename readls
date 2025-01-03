@@ -1,0 +1,42 @@
+#!/bin/bash
+csvFile=$1
+tmpPath=/tmp
+csvLines=$(wc -l $csvFile | cut -d" " -f1)
+tailLines=$((csvLines - 1))
+csvContent=$(tail -n $tailLines $csvFile | sed -r 's/ *[,;]/ /g')
+Ids=$(echo "$csvContent" | cut -d" " -f4 | sort -u)
+
+function searchId() {
+        id=$1
+        rm -f $tmpPath/$id.all $tmpPath/$id.sort
+        while read ano mes Dia Id disp pico tx; do
+                if [[ $Id -eq $id ]]; then
+                        echo "$pico $disp $Dia $mes $ano" >> $tmpPath/$id.all
+                fi
+        done <<< "$csvContent"
+
+        sort -rn $tmpPath/$id.all > $tmpPath/$id.sort
+
+        while read pico disp dia mes ano; do
+                grep -q "$ano" <<< "$anoFilter" && continue || anoFilter="$anoFilter $ano"
+                echo -e "$pico $id $disp $dia $mes $ano" >> $tmpPath/final.all
+        done < $tmpPath/$id.sort
+
+        unset anoFilter
+}
+
+# Main
+rm -f $tmpPath/final.all $tmpPath/final.sort
+
+# Identificando IDs
+for Id in $Ids; do
+        searchId $Id
+done
+
+sort -rn $tmpPath/final.all > $tmpPath/final.sort
+
+echo -e "ID\tPico\tDisp\tData"
+while read pico id disp dia mes ano; do
+        #echo -e "$id\t$pico\t$disp\t$dia/$mes/$ano"
+        echo -e "$id $pico $disp $dia/$mes/$ano"
+done < $tmpPath/final.sort
