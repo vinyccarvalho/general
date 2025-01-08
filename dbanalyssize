@@ -1,0 +1,57 @@
+#!/bin/bash
+
+RED='\033[0;31m'
+NC='\033[0m'
+
+fileInput=$*
+
+if ! grep -Eq '^Options: chanalys ixanalys tabanalys' $fileInput; then
+	echo "Arquivo nao compatível com dbanalys"
+	exit
+fi
+
+lineTotals=$(grep -E "^Total +" $fileInput)
+dbSizeTotal=0
+
+
+while read db c1 c2 c3 c4 c5 c6 c7 c8; do 
+	dbFile=${db%%.dbanalys:Total}
+	dbFileC=$(echo -n "$dbFile" | wc -c)
+	[[ $dbFileC -gt 7 ]] && tabs="\t" || tabs="\t\t"
+	dbSize=${c7%[KMGT]}
+	sizeType=${c7##[0-9]*[^MKGT]}
+
+	case $sizeType in
+		"B")	dbSize=0.01
+			sizeType="GB"
+			;;
+
+		"K")	dbSize=0.01
+			sizeType="GB"
+			;;
+
+		"M")	dbSize=$(echo "scale=2; $dbSize / 1024" | bc)
+			dbSize=${dbSize/#./0.}
+			[[ $dbSize == 0 ]] && dbSize=0.01
+			sizeType="GB"
+			;;
+
+		"G")	sizeType="GB"
+			;;
+
+		"T")	dbSize=$(echo "scale=2; $dbSize * 1024" | bc)
+			dbSize=${dbSize/#./0.}
+			sizeType="GB"
+			;;
+	esac
+
+	dbSizeTotal=$(echo "$dbSizeTotal + $dbSize"| bc )
+
+	echo -e "${dbFile/%.dbanalys:Total/}$tabs${dbSize/./,} $sizeType";
+
+done <<< $lineTotals
+
+echo -e "\nTotal:\t\t$dbSizeTotal GB"
+
+grep -qE "^_FOREIGN" $fileInput && echo -e "\n${RED}ALERTA:$NC Tabelas estrangeiras encontradas nas estruturas."
+

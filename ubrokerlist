@@ -1,0 +1,58 @@
+#!/bin/bash
+
+ubrokerFiles=$*
+totalAgents=0
+
+for ubrokerFile in $ubrokerFiles; do
+	unset appNames
+
+	ubrokerLines="$(cat $ubrokerFile)"
+
+	allAppNames=$(sed -rn 's/^\[(UBroker\.(AS|WS)|WSA)\.([^]]+)\]\r?$/\3/p' <<< "$ubrokerLines")
+
+	# Recebe o nome dos apps
+	for appName in $allAppNames; do
+		grep -Eq '(asbroker1|bpsbroker1|esbbroker1|icfrepos|restbroker1|wsbroker1|wsdynamics1|wsa1)' <<< $appName && continue
+		appNames+=($appName)
+	done
+
+	for app in ${appNames[@]}; do
+		# Nao econtrou o app
+		appFound=0
+		# Nao encontrou o maxServers
+		maxFind=0
+		# Zerando valores
+		unset maxServers
+
+		whileLines="$(grep -A 100 -E "^\[(UBroker\.(AS|WS)|WSA)\.$app" <<< $ubrokerLines)"
+
+		while read line; do
+			if grep -Eq "^\[(UBroker\.(AS|WS)|WSA)\.$app" <<< "$line"; then
+				grep -q "UBroker.AS" <<< "$line" && appType="Appserver"
+				grep -q "UBroker.WS" <<< "$line" && appType="Webspeed"
+				grep -Eq "^\[WSA" <<< "$line" && appType="WSA"
+				# Encontrou o app
+				appFound=1
+				appName=$app
+				continue
+			fi
+
+			[[ $appFound -eq 1 ]] && grep -Eq "^\[" <<< "$line" && break
+			[[ $appType = "WSA" ]] && maxServers=0 && break
+
+			if [[ $appFound -eq 1 ]] && grep -Eq "maxSrvrInstance" <<< $line; then
+				maxServers=$(sed -rn 's/maxSrvrInstance=([0-9]+)\r?$/\1/p' <<< "$line")
+				maxFind=1
+				break
+			fi
+
+		done <<< "$whileLines"
+		
+		[[ $appFound -eq 1 ]] && [[ -z $maxServers ]] && maxServers=15
+		[[ $appFound -eq 1 ]] && [[ -n $maxServers ]] && totalAgents=$((totalAgents + maxServers))
+		[[ $appFound -eq 1 ]] && echo "$ubrokerFile $appType $appName $maxServers"
+	done
+done
+
+echo "Total de agentes: $totalAgents"
+

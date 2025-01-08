@@ -1,0 +1,41 @@
+#!/bin/bash
+
+properties_files=$*
+
+#sed -rn "s/^# +(\(.*) += +([0-9]+)\r$/\2/p" $properties_files
+
+#exit 
+
+# versao reativada
+properties_content=$(cat $properties_files)
+
+while read properties_line; do
+
+	if grep -Eq "^\[AppServer\.SessMgr]" <<< $properties_line; then
+		show_line=1
+		app_name=$(sed -rn 's/^\[[^]]+\.([^]]+)\]\r?$/\1/p' <<< $properties_line)
+		continue
+	fi
+
+	if [[ -n $show_line ]]; then
+		if grep -Eq "^maxABLSessionsPerAgent=[0-9]+" <<< $properties_line; then
+			max_abl=$(sed -rn 's/^maxABLSessionsPerAgent=([0-9]+)(\r|$)/\1/p' <<< $properties_line)
+			maxABLSessionsPerAgent=200
+		fi
+
+		if grep -Eq "^maxAgents=[0-9]" <<< $properties_line; then
+			max_agents=$(sed -rn 's/^maxAgents=([0-9]+)(\r|$)/\1/p' <<< $properties_line)
+		fi
+
+		if grep -Eq "^\[" <<< $properties_line; then
+			[[ -z $max_abl ]] && max_abl=1
+			[[ -z $max_agents ]] && max_agents=1
+			max_db_connections=$(( max_abl * max_agents ))
+			echo "PasOE $app_name $max_db_connections"
+			unset show_line app_name max_abl max_agents max_db_connections
+		fi
+	fi
+
+
+done <<< "$properties_content"
+

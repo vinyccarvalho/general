@@ -1,0 +1,85 @@
+#!/bin/bash
+
+filesName=$*
+
+knowedSystems="HPUX Itanium 64bit
+Linux 64bit
+Linux 32bit
+Windows 32bit
+Windows 64bit
+IBM AIX 64bit"
+
+knowedTypes=(	"OE Enterprise RDBMS"
+		"OE App Server Enterprise"
+		"OpenEdge Replication"
+		"OE Repl Plus Enterprise"
+		"OE Repl Enterprise Ed"
+		"4GL Development System"
+		"OE Studio"
+		"OpenEdge Studio"
+		"Client Networking"
+		"Query/RESULTS"
+		"OE DataServer for Oracle"
+		"OE CDC for Enterprise DB"
+		"PAS for OE PROD Bundle"
+		"Progress DevStudioforOE"
+		"OE WorkGroup RDBMS"
+		"OE Personal RDBMS"
+		"OE DataSvrfor MS SQL Svr"
+		"NameServer Load Balancer"
+		"PAS for OE PROD Bundle"
+		)
+
+licContents=$(cat $filesName)
+serialList=$(sed -rn 's/.*Serial #: +([0-9]+) .*/\1/p' <<< $licContents)
+serialAnalized=""
+
+for serial in $serialList; do
+	counter=$(grep -c $serial <<< "$serialList")
+	dataList=$(grep -B1 $serial <<< $licContents | grep -Eo "[0-9]+/[0-9]+/[0-9]+")
+	if [ $counter -gt 1 ]; then
+		if grep -q $serial <<< $serialAnalized; then
+			continue
+		else
+			serialAnalized="$serialAnalized $serial"
+		fi
+
+		unset bestData
+		while read data; do
+			if [[ -z $bestData ]]; then
+				bestData=$data
+			else
+				dataNewDay=$(echo $data | sed -rn 's/^([0-9]+)\/([0-9]+)\/([0-9]+)/\1/p')
+				dataNewMonth=$(echo $data | sed -rn 's/^([0-9]+)\/([0-9]+)\/([0-9]+)/\2/p')
+				dataNewYear=$(echo $data | sed -rn 's/^([0-9]+)\/([0-9]+)\/([0-9]+)/\3/p')
+				dataOldDay=$(echo $bestData | sed -rn 's/^([0-9]+)\/([0-9]+)\/([0-9]+)/\1/p')
+				dataOldMonth=$(echo $bestData | sed -rn 's/^([0-9]+)\/([0-9]+)\/([0-9]+)/\2/p')
+				dataOldYear=$(echo $bestData | sed -rn 's/^([0-9]+)\/([0-9]+)\/([0-9]+)/\3/p')
+
+				if [[ $dataNewYear -gt $dataOldYear ]]; then
+					bestData=$data
+					continue
+					if [[ $dataNewMonth -gt $dataOldMonth ]]; then
+						bestData=$data
+						continue
+						if [[ $dataNewDay -gt $dataOldDay ]]; then
+							bestData=$data
+						fi
+					fi
+				fi
+			fi
+		done <<< $dataList
+	else
+		bestData=$dataList
+	fi
+
+	while read serialData; do
+		for lType in "${knowedTypes[@]}"; do
+			grep -q "$lType" <<< $serialData && echo
+		done
+
+		echo "$serialData" 
+	done <<< $(grep -A2 -B1 $bestData <<< "$licContents" | grep -m1 -B2 -A1 $serial)
+
+done
+
