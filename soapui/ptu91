@@ -1,0 +1,2631 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<con:soapui-project id="5b1692cf-df43-43f1-9888-ab9e23b734ec" activeEnvironment="Default" name="PTU" resourceRoot="" soapui-version="5.8.0" xmlns:con="http://eviware.com/soapui/config"><con:settings/><con:interface xsi:type="con:WsdlInterface" id="64cf311f-3453-4fad-87d0-17b65a3b312f" wsaVersion="NONE" name="ConsultaDadosBeneficiarioBinding" type="wsdl" bindingName="{http://ptu.unimed.coop.br/consultadadosbeneficiario/webservices/V91_00}ConsultaDadosBeneficiarioBinding" soapVersion="1_1" anonymous="optional" definition="https://wsdadmin.unimed.coop.br/wsdadmin/home/arquivos_ptu_91_pro/consultaDadosBeneficiario_V91_00.wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings/><con:definitionCache type="TEXT" rootPart="https://wsdadmin.unimed.coop.br/wsdadmin/home/arquivos_ptu_91_pro/consultaDadosBeneficiario_V91_00.wsdl"><con:part><con:url>https://wsdadmin.unimed.coop.br/wsdadmin/home/arquivos_ptu_91_pro/consultaDadosBeneficiario_V91_00.wsdl</con:url><con:content><![CDATA[<!--Projeto: PTU XML Volume II
+	Serviço: ConsultaDadosBeneficiario
+	Versão: V91_00
+	Revisão: 001
+	Target Namespace: http://ptu.unimed.coop.br/consultadadosbeneficiario/webservices/V91_00
+
+	Autores:
+	Unimed do Brasil-->
+<definitions name="ConsultaDadosBeneficiario" targetNamespace="http://ptu.unimed.coop.br/consultadadosbeneficiario/webservices/V91_00" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:ns="http://schemas.xmlsoap.org/soap/encoding/" xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:tns="http://ptu.unimed.coop.br/consultadadosbeneficiario/webservices/V91_00" xmlns:ptu="http://ptu.unimed.coop.br/schemas/V91_00">
+  <wsdl:types>
+    <xsi:schema targetNamespace="http://ptu.unimed.coop.br/consultadadosbeneficiario/webservices/V91_00" xmlns:soap11-enc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:xsi="http://www.w3.org/2001/XMLSchema" xmlns="http://www.w3.org/2001/XMLSchema">
+      <xsi:import namespace="http://ptu.unimed.coop.br/schemas/V91_00" schemaLocation="ptu_Transacoes-V91_00.xsd"/>
+    </xsi:schema>
+  </wsdl:types>
+  <message name="ConsultaDadosBeneficiarioRequest">
+    <part name="ConsultaDadosBeneficiarioRequest" element="ptu:consultaDadosBeneficiarioWS"/>
+  </message>
+  <message name="ConsultaDadosBeneficiarioResponse">
+    <part name="ConsultaDadosBeneficiarioResponse" element="ptu:respostaConsultaDadosBeneficiarioWS"/>
+  </message>
+  <message name="ErroInesperadoFault">
+    <part name="ErroInesperadoFault" element="ptu:erroInesperadoWS"/>
+  </message>
+  <portType name="ConsultaDadosBeneficiarioPortType">
+    <operation name="ConsultaDadosBeneficiarioOperation">
+      <input message="tns:ConsultaDadosBeneficiarioRequest"/>
+      <output message="tns:ConsultaDadosBeneficiarioResponse"/>
+      <fault name="ErroInesperadoFault" message="tns:ErroInesperadoFault"/>
+    </operation>
+  </portType>
+  <binding name="ConsultaDadosBeneficiarioBinding" type="tns:ConsultaDadosBeneficiarioPortType">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <operation name="ConsultaDadosBeneficiarioOperation">
+      <soap:operation soapAction=""/>
+      <input>
+        <soap:body use="literal"/>
+      </input>
+      <output>
+        <soap:body use="literal"/>
+      </output>
+      <fault name="ErroInesperadoFault">
+        <soap:fault name="ErroInesperadoFault" use="literal"/>
+      </fault>
+    </operation>
+  </binding>
+  <service name="ConsultaDadosBeneficiario">
+    <port name="ConsultaDadosBeneficiarioPort" binding="tns:ConsultaDadosBeneficiarioBinding">
+      <soap:address location="https://wsdapi.unimed.coop.br/wsdintercambio/intercambioservices/ptu_V91_00/ConsultaDadosBeneficiario"/>
+    </port>
+  </service>
+</definitions>]]></con:content><con:type>http://schemas.xmlsoap.org/wsdl/</con:type></con:part><con:part><con:url>https://wsdadmin.unimed.coop.br/wsdadmin/home/arquivos_ptu_91_pro/ptu_Transacoes-V91_00.xsd</con:url><con:content><![CDATA[<!--edited with XMLSpy v2023 sp1 (x64) (http://www.altova.com) by  (Unimed do Brasil)-->
+<!--Projeto: PTU XML Volume II
+	Versão: V1_01_91
+	Revisão: 001
+	TargetNameSpace: http://ptu.unimed.coop.br/schemas/V91_00
+	
+	Autores: 
+	Unimed do Brasil-->
+<schema targetNamespace="http://ptu.unimed.coop.br/schemas/V91_00" elementFormDefault="qualified" xmlns="http://www.w3.org/2001/XMLSchema" xmlns:ptu="http://ptu.unimed.coop.br/schemas/V91_00">
+  <include schemaLocation="ptu_ComplexTypes-V91_00.xsd"/>
+  <!--Elementos que definem as mensagens PTU-->
+  <!--Transacao 00600 - Pedido de autorizacao-->
+  <complexType name="ct_pedidoAutorizacao">
+    <sequence>
+      <element name="numeroTransacaoPrestadora" type="ptu:st_nrIdent"/>
+      <element name="identificacaoBeneficiario">
+        <complexType>
+          <complexContent>
+            <extension base="ptu:ct_identificacaoBeneficiario">
+              <sequence>
+                <element name="identificacaoBiometrica" type="ptu:st_idBenefBiometria" minOccurs="0"/>
+              </sequence>
+            </extension>
+          </complexContent>
+        </complexType>
+      </element>
+      <element name="codigoCID" type="ptu:st_cdCID" minOccurs="0"/>
+      <element name="prestadorSolicitante" type="ptu:ct_identificacaoPrestadorSolicit" minOccurs="0"/>
+      <element name="prestadorExecutante" type="ptu:ct_identificacaoPrestadorExecut" minOccurs="0"/>
+      <element name="idUrgenciaEmergencia" type="ptu:st_simNao"/>
+      <element name="dataAtendimento" type="ptu:st_data2" minOccurs="0"/>
+      <element name="numeroVersaoPTU" type="ptu:st_versaoPTU"/>
+      <element name="idRN" type="ptu:st_simNao"/>
+      <element name="tpInternacao" type="ptu:st_tpInternacao" minOccurs="0"/>
+      <element name="idAcidente" type="ptu:st_idAcidente"/>
+      <element name="cdUnimedAtend" type="ptu:st_cdUnimedAtend"/>
+      <element name="dataSugeridaInternacao" type="ptu:st_data2" minOccurs="0"/>
+      <element name="nrIdentOrdemServico" type="ptu:st_nrIdent" minOccurs="0"/>
+      <element name="nrVerTiss" type="ptu:st_nrVerTiss"/>
+      <element name="observacao" type="ptu:st_dsObservacao" minOccurs="0"/>
+      <element name="indicacaoClinica" type="ptu:st_indicacaoClinica" minOccurs="0"/>
+      <element name="idLiminar" type="ptu:st_simNao"/>
+      <element name="cdIBGE" type="ptu:st_cdIBGE"/>
+      <element name="protocoloAtendimento" type="ptu:st_protocoloAtendimento" minOccurs="0"/>
+      <element name="token" type="ptu:st_token" minOccurs="0"/>
+      <element name="tipoEtapaAutorizacao" type="ptu:st_tpetapaAutoriz"/>
+      <element name="dataSolicitacao" type="ptu:st_data2"/>
+      <element name="tipoGuia" type="ptu:st_tpguia"/>
+      <element name="tpAcomodacao" type="ptu:st_tpAcomodacao"/>
+      <element name="complementar1" type="ptu:st_complementar" minOccurs="0"/>
+      <element name="complementar2" type="ptu:st_complementar" minOccurs="0"/>
+      <element name="complementar3" type="ptu:st_complementar" minOccurs="0"/>
+      <element name="idCoberturaEspecial" type="ptu:st_tpCobertura" minOccurs="0"/>
+      <element name="saudeOcupacional" type="ptu:st_saudeOcupacional" minOccurs="0"/>
+      <element name="blocoServicoPedido" type="ptu:ct_blocoServicoPedido"/>
+      <element name="dadosAnexoOPME" type="ptu:ct_dadosAnexoOPME" minOccurs="0"/>
+      <element name="dadosAnexoQuimio" type="ptu:ct_dadosAnexoQuimio" minOccurs="0"/>
+      <element name="dadosAnexoRadio" type="ptu:ct_dadosAnexoRadio" minOccurs="0"/>
+    </sequence>
+  </complexType>
+  <!--Transacao 00605 - Pedido de Complemento de autorizacao-->
+  <complexType name="ct_pedidoComplementoAutorizacao">
+    <sequence>
+      <element name="numeroTransacaoPrestadora" type="ptu:st_nrIdent"/>
+      <element name="numeroTransacaoOriginalPrestadora" type="ptu:st_nrIdent"/>
+      <element name="identificacaoBeneficiario">
+        <complexType>
+          <complexContent>
+            <extension base="ptu:ct_identificacaoBeneficiario">
+              <sequence>
+                <element name="identificacaoBiometrica" type="ptu:st_idBenefBiometria" minOccurs="0"/>
+              </sequence>
+            </extension>
+          </complexContent>
+        </complexType>
+      </element>
+      <element name="prestadorSolicitante" type="ptu:ct_identificacaoPrestadorSolicit" minOccurs="0"/>
+      <element name="prestadorExecutante" type="ptu:ct_identificacaoPrestadorExecutComp" minOccurs="0"/>
+      <element name="numeroVersaoPTU" type="ptu:st_versaoPTU"/>
+      <element name="observacao" type="ptu:st_dsObservacao" minOccurs="0"/>
+      <element name="indicacaoClinica" type="ptu:st_indicacaoClinica" minOccurs="0"/>
+      <element name="idLiminar" type="ptu:st_simNao"/>
+      <element name="protocoloAtendimento" type="ptu:st_protocoloAtendimento" minOccurs="0"/>
+      <element name="token" type="ptu:st_token" minOccurs="0"/>
+      <element name="tpAcomodacao" type="ptu:st_tpAcomodacao"/>
+      <element name="complementar1" type="ptu:st_complementar" minOccurs="0"/>
+      <element name="complementar2" type="ptu:st_complementar" minOccurs="0"/>
+      <element name="complementar3" type="ptu:st_complementar" minOccurs="0"/>
+      <element name="blocoServicoPedido" type="ptu:ct_blocoServicoPedido"/>
+      <element name="dadosAnexoOPME" type="ptu:ct_dadosAnexoOPME" minOccurs="0"/>
+      <element name="dadosAnexoQuimio" type="ptu:ct_dadosAnexoQuimio" minOccurs="0"/>
+      <element name="dadosAnexoRadio" type="ptu:ct_dadosAnexoRadio" minOccurs="0"/>
+    </sequence>
+  </complexType>
+  <!--Transacao 00501 - Resposta de Pedido de Autorizacao-->
+  <complexType name="ct_respostaPedidoAutorizacao">
+    <sequence>
+      <element name="numeroTransacaoPrestadora" type="ptu:st_nrIdent"/>
+      <element name="numeroTransacaoOrigemBeneficiario" type="ptu:st_nrIdent" minOccurs="0"/>
+      <element name="identificacaoBeneficiario">
+        <complexType>
+          <complexContent>
+            <extension base="ptu:ct_identificacaoBeneficiario">
+              <sequence>
+                <element name="nomeBeneficiario" type="ptu:st_nome"/>
+                <element name="nomeSocial" type="ptu:st_nomeSocial" minOccurs="0"/>
+              </sequence>
+            </extension>
+          </complexContent>
+        </complexType>
+      </element>
+      <element name="dataValidadeAutorizacao" type="ptu:st_data2" minOccurs="0"/>
+      <element name="tpAutorizacao" type="ptu:st_tpAutorizacao"/>
+      <element name="tpAcomodacao" type="ptu:st_tpAcomodacao"/>
+      <element name="numeroVersaoPTU" type="ptu:st_versaoPTU"/>
+      <element name="tpSexo" type="ptu:st_tpSexo" minOccurs="0"/>
+      <element name="nrIdade" type="ptu:st_nrIdade" minOccurs="0"/>
+      <element name="observacao" type="ptu:st_dsObservacao" minOccurs="0"/>
+      <element name="complementarResp1" type="ptu:st_complementar" minOccurs="0"/>
+      <element name="complementarResp2" type="ptu:st_complementar" minOccurs="0"/>
+      <element name="complementarResp3" type="ptu:st_complementar" minOccurs="0"/>
+      <element name="blocoServicoRespostaPedido" type="ptu:ct_blocoServicoRespostaPedidoAutorizacao"/>
+    </sequence>
+  </complexType>
+  <!--Transacao 00302 - Pedido de Insistencia-->
+  <complexType name="ct_pedidoInsistencia">
+    <sequence>
+      <element name="numeroTransacaoPrestadora" type="ptu:st_nrIdent"/>
+      <element name="numeroTransacaoOrigemBeneficiario" type="ptu:st_nrIdent" minOccurs="0"/>
+      <element name="numeroVersaoPTU" type="ptu:st_versaoPTU"/>
+      <element name="mensagemLivre" type="ptu:st_dsMensagemLivre"/>
+    </sequence>
+  </complexType>
+  <!--Transacao 00309 - Confirmacao-->
+  <complexType name="ct_confirmacao">
+    <sequence>
+      <element name="numeroTransacaoPrestadora" type="ptu:st_nrIdent"/>
+      <element name="numeroTransacaoOrigemBeneficiario" type="ptu:st_nrIdent" minOccurs="0"/>
+      <element name="identificador" type="ptu:st_tpIdentificadorConfirmacao"/>
+      <element name="numeroVersaoPTU" type="ptu:st_versaoPTU"/>
+    </sequence>
+  </complexType>
+  <!--Transacao 00404 - Resposta de Auditoria-->
+  <complexType name="ct_respostaAuditoria">
+    <sequence>
+      <element name="numeroTransacaoPrestadora" type="ptu:st_nrIdent"/>
+      <element name="numeroTransacaoOrigemBeneficiario" type="ptu:st_nrIdent"/>
+      <element name="dataValidadeAutorizacao" type="ptu:st_data2" minOccurs="0"/>
+      <element name="tpAutorizacao" type="ptu:st_tpAutorizacao"/>
+      <element name="numeroVersaoPTU" type="ptu:st_versaoPTU"/>
+      <element name="mensagemLivre" type="ptu:st_dsMensagemLivre"/>
+      <element name="blocoServicoRespostaAuditoria" type="ptu:ct_blocoServicoRespostaAuditoria"/>
+    </sequence>
+  </complexType>
+  <!--Transacao 00311 - Cancelamento-->
+  <complexType name="ct_cancelamento">
+    <sequence>
+      <element name="numeroTransacaoPrestadora" type="ptu:st_nrIdent"/>
+      <element name="numeroTransacaoOrigemBeneficiario" type="ptu:st_nrIdent" minOccurs="0"/>
+      <element name="numeroVersaoPTU" type="ptu:st_versaoPTU"/>
+      <element name="descricaoMotivo" type="ptu:st_dsMotivo"/>
+    </sequence>
+  </complexType>
+  <!--Transacao 00412 - Consulta de dados do beneficiario-->
+  <complexType name="ct_consultaDadosBeneficiario">
+    <sequence>
+      <element name="numeroTransacaoPrestadora" type="ptu:st_nrIdent"/>
+      <element name="codigoUnimed" type="ptu:st_cdUnimed" minOccurs="0"/>
+      <element name="codigoIdentificacao" type="ptu:st_idBenef" minOccurs="0"/>
+      <element name="numeroCPF" type="ptu:st_numeroCPF" minOccurs="0"/>
+      <element name="numeroVersaoPTU" type="ptu:st_versaoPTU"/>
+      <element name="token" type="ptu:st_token" minOccurs="0"/>
+    </sequence>
+  </complexType>
+  <!--Transacao 00413 - Resposta da Consulta de Dados do Beneficiario-->
+  <complexType name="ct_respostaConsultaDadosBeneficiario">
+    <sequence>
+      <element name="identificaSolicitacaoConfirmada" type="ptu:st_simNao"/>
+      <element name="codigoMensagemErro" type="ptu:st_cdMensErroEspec" minOccurs="0"/>
+      <element name="numeroTransacaoPrestadora" type="ptu:st_nrIdent"/>
+      <element name="numeroTransacaoOrigemBeneficiario" type="ptu:st_nrIdent"/>
+      <element name="numeroVersaoPTU" type="ptu:st_versaoPTU"/>
+      <element name="blocoNomes" minOccurs="0" maxOccurs="unbounded">
+        <complexType>
+          <sequence>
+            <element name="identificacaoBeneficiario">
+              <complexType>
+                <complexContent>
+                  <extension base="ptu:ct_identificacaoBeneficiario">
+                    <sequence>
+                      <element name="nomeCompleto" type="ptu:st_nomeCompleto"/>
+                      <element name="nomeSocial" type="ptu:st_nomeSocial" minOccurs="0"/>
+                      <element name="dataNascimento" type="ptu:st_data2"/>
+                      <element name="sexoBeneficiario" type="ptu:st_tpSexo" minOccurs="0"/>
+                    </sequence>
+                  </extension>
+                </complexContent>
+              </complexType>
+            </element>
+            <element name="nrIdade" type="ptu:st_nrIdade"/>
+            <element name="tpAcomodacao" type="ptu:st_tpAcomodacao"/>
+            <element name="tipoAbrangencia" type="ptu:st_tpAbrangencia"/>
+            <element name="localAtendimento" type="ptu:st_cdLcat"/>
+            <element name="dataInclusaoUnimed" type="ptu:st_data2"/>
+            <element name="dataExclusaoUnimed" type="ptu:st_data2" minOccurs="0"/>
+            <element name="cdRede" type="ptu:st_cdRede"/>
+            <element name="idPlano" type="ptu:st_idPlano"/>
+            <element name="dataValidadeCarteira" type="ptu:st_data2"/>
+          </sequence>
+        </complexType>
+      </element>
+    </sequence>
+  </complexType>
+  <!--Transacao 00418 - Consulta de dados do prestador-->
+  <complexType name="ct_consultaDadosPrestador">
+    <sequence>
+      <element name="numeroTransacaoPrestadora" type="ptu:st_nrIdent"/>
+      <element name="nomePrestador" type="ptu:st_nomePrestador"/>
+      <element name="cnpjCpfPrestador" type="ptu:st_cnpjCpf" minOccurs="0"/>
+      <element name="ct_conselhoProfissional" minOccurs="0">
+        <complexType>
+          <sequence>
+            <element name="siglaConselho" type="ptu:st_siglaConselho"/>
+            <element name="numeroConselho" type="ptu:st_numeroConselhoRegional"/>
+            <element name="unidadeFederativa" type="ptu:st_unidadeFederativa"/>
+          </sequence>
+        </complexType>
+      </element>
+      <element name="numeroVersaoPTU" type="ptu:st_versaoPTU"/>
+    </sequence>
+  </complexType>
+  <!--Transacao 00419 - Resposta da consulta de dados do prestador-->
+  <complexType name="ct_respostaConsultaDadosPrestador">
+    <sequence>
+      <element name="numeroTransacaoPrestadora" type="ptu:st_nrIdent"/>
+      <element name="numeroTransacaoOrigemBeneficiario" type="ptu:st_nrIdent"/>
+      <element name="identificaSolicitacaoConfirmada" type="ptu:st_simNao"/>
+      <element name="codigoMensagemErro" type="ptu:st_cdMensErroEspec" minOccurs="0"/>
+      <element name="numeroVersaoPTU" type="ptu:st_versaoPTU"/>
+      <element name="blocoNomes" minOccurs="0" maxOccurs="unbounded">
+        <complexType>
+          <sequence>
+            <element name="identificacaoPrestador">
+              <complexType>
+                <complexContent>
+                  <extension base="ptu:ct_identificacaoPrestador">
+                    <sequence>
+                      <element name="nomePrestador" type="ptu:st_nomePrestador"/>
+                      <element name="codigoEspecialidadeMedica" type="ptu:st_cdEspec" minOccurs="0"/>
+                      <element name="tpRedeMIN" type="ptu:st_tpRedeMIN"/>
+                    </sequence>
+                  </extension>
+                </complexContent>
+              </complexType>
+            </element>
+          </sequence>
+        </complexType>
+      </element>
+    </sequence>
+  </complexType>
+  <!--Transacao 00806 - Requisicao de Ordem de Servico-->
+  <complexType name="ct_ordemServico">
+    <sequence>
+      <element name="identificacaoBeneficiario">
+        <complexType>
+          <complexContent>
+            <extension base="ptu:ct_identificacaoBeneficiario">
+              <sequence>
+                <element name="nomeBeneficiario" type="ptu:st_nome"/>
+                <element name="nomeSocial" type="ptu:st_nomeSocial" minOccurs="0"/>
+              </sequence>
+            </extension>
+          </complexContent>
+        </complexType>
+      </element>
+      <element name="numeroTransacaoOrigemBeneficiario" type="ptu:st_nrIdent" minOccurs="0"/>
+      <element name="numeroTransacaoUnimedSolicitante" type="ptu:st_nrIdent"/>
+      <element name="codigoUnimedSolicitante" type="ptu:st_cdUnimed"/>
+      <element name="prestadorSolicitante" type="ptu:ct_identificacaoPrestadorSolicit" minOccurs="0"/>
+      <element name="prestadorExecutante" type="ptu:ct_identificacaoPrestadorExecutComp" minOccurs="0"/>
+      <element name="codigoCID" type="ptu:st_cdCID" minOccurs="0"/>
+      <element name="idUrgenciaEmergencia" type="ptu:st_simNao"/>
+      <element name="dataSugeridaInternacao" type="ptu:st_data2" minOccurs="0"/>
+      <element name="dataValidadeAutorizacao" type="ptu:st_data2"/>
+      <element name="idRN" type="ptu:st_simNao"/>
+      <element name="tpInternacao" type="ptu:st_tpInternacao" minOccurs="0"/>
+      <element name="idAcidente" type="ptu:st_idAcidente"/>
+      <element name="tpSexo" type="ptu:st_tpSexo" minOccurs="0"/>
+      <element name="nrIdade" type="ptu:st_nrIdade" minOccurs="0"/>
+      <element name="numeroVersaoPTU" type="ptu:st_versaoPTU"/>
+      <element name="observacao" type="ptu:st_dsObservacao" minOccurs="0"/>
+      <element name="indicacaoClinica" type="ptu:st_indicacaoClinica" minOccurs="0"/>
+      <element name="idLiminar" type="ptu:st_simNao"/>
+      <element name="cdIBGE" type="ptu:st_cdIBGE"/>
+      <element name="nrVerTiss" type="ptu:st_nrVerTiss"/>
+      <element name="tipoGuia" type="ptu:st_tpguia"/>
+      <element name="idCoberturaEspecial" type="ptu:st_tpCobertura" minOccurs="0"/>
+      <element name="saudeOcupacional" type="ptu:st_saudeOcupacional" minOccurs="0"/>
+      <element name="blocoServicoAutorizado" type="ptu:ct_blocoServicoAutorizado"/>
+      <element name="dadosAnexoOPME" type="ptu:ct_dadosAnexoOPME" minOccurs="0"/>
+      <element name="dadosAnexoQuimio" type="ptu:ct_dadosAnexoQuimio" minOccurs="0"/>
+      <element name="dadosAnexoRadio" type="ptu:ct_dadosAnexoRadio" minOccurs="0"/>
+    </sequence>
+  </complexType>
+  <!--Transacao 00807 - Resposta de Requisicao de Ordem de Servico-->
+  <complexType name="ct_respostaOrdemServico">
+    <sequence>
+      <element name="numeroTransacaoUnimedSolicitante" type="ptu:st_nrIdent"/>
+      <element name="codigoUnimedSolicitante" type="ptu:st_cdUnimed"/>
+      <element name="numeroTransacaoPrestadora" type="ptu:st_nrIdent"/>
+      <element name="identificacaoBeneficiario" type="ptu:ct_identificacaoBeneficiario"/>
+      <element name="numeroVersaoPTU" type="ptu:st_versaoPTU"/>
+      <element name="observacao" type="ptu:st_dsObservacao" minOccurs="0"/>
+      <element name="blocoServicoAceito" type="ptu:ct_blocoServicoAceito"/>
+    </sequence>
+  </complexType>
+  <!--Transacao 00310 - Erro Inesperado-->
+  <complexType name="ct_erroInesperado">
+    <sequence>
+      <element name="numeroTransacaoPrestadora" type="ptu:st_nrIdent" minOccurs="0"/>
+      <element name="numeroTransacaoOrigemBeneficiario" type="ptu:st_nrIdent" minOccurs="0"/>
+      <element name="codigoMensagemExcecao" type="ptu:st_codigoErro"/>
+      <element name="mensagemErro" type="ptu:st_mensagemErro"/>
+    </sequence>
+  </complexType>
+  <!--Transacao 00360 - Status da Transacao-->
+  <complexType name="ct_statusTransacao">
+    <sequence>
+      <element name="numeroTransacaoPrestadora" type="ptu:st_nrIdent"/>
+      <element name="numeroVersaoPTU" type="ptu:st_versaoPTU"/>
+    </sequence>
+  </complexType>
+  <!--Transacao 00361 - Resposta de Status da Transacao-->
+  <complexType name="ct_respostaStatusTransacao">
+    <sequence>
+      <element name="numeroTransacaoPrestadora" type="ptu:st_nrIdent"/>
+      <element name="numeroTransacaoOrigemBeneficiario" type="ptu:st_nrIdent" minOccurs="0"/>
+      <element name="tpIdentificadorConfirmacao" type="ptu:st_tpIdentificadorConfirmacao"/>
+      <element name="dataValidadeAutorizacao" type="ptu:st_data2" minOccurs="0"/>
+      <element name="numeroVersaoPTU" type="ptu:st_versaoPTU"/>
+      <element name="observacao" type="ptu:st_dsObservacao" minOccurs="0"/>
+      <element name="blocoServicoRespostaPedido" type="ptu:ct_blocoServicoRespostaStatus" minOccurs="0"/>
+    </sequence>
+  </complexType>
+  <!--Transacao 00430 - Requisicao de Contagem de Beneficiarios-->
+  <complexType name="ct_requisicaoContagemBeneficiarios">
+    <sequence>
+      <element name="dataReferencia" type="ptu:ct_dataReferencia"/>
+      <element name="numeroVersaoPTU" type="ptu:st_versaoPTU"/>
+    </sequence>
+  </complexType>
+  <!--Transacao 00431 - Resposta de Requisicao de Contagem de Beneficiarios-->
+  <complexType name="ct_respostaRequisicaoContagemBeneficiarios">
+    <sequence>
+      <element name="statusResposta" type="ptu:st_stRetorno"/>
+      <element name="numeroBeneficiariosAtivos">
+        <complexType>
+          <sequence>
+            <element name="custoOperacional">
+              <complexType>
+                <sequence>
+                  <element name="pessoaFisica" type="ptu:ct_beneficiariosPessoaFisica"/>
+                  <element name="pessoaJuridica" type="ptu:ct_beneficiariosPessoaJuridica"/>
+                </sequence>
+              </complexType>
+            </element>
+            <element name="prePagamento">
+              <complexType>
+                <sequence>
+                  <element name="pessoaFisica" type="ptu:ct_beneficiariosPessoaFisica"/>
+                  <element name="pessoaJuridica" type="ptu:ct_beneficiariosPessoaJuridica"/>
+                </sequence>
+              </complexType>
+            </element>
+          </sequence>
+        </complexType>
+      </element>
+      <element name="numeroVersaoPTU" type="ptu:st_versaoPTU"/>
+    </sequence>
+  </complexType>
+  <!--Transacao 00700 - comunicacao de Decurso de Prazo-->
+  <complexType name="ct_comunicacaoDecursoPrazo">
+    <sequence>
+      <element name="numeroTransacaoPrestadora" type="ptu:st_nrIdent"/>
+      <element name="numeroVersaoPTU" type="ptu:st_versaoPTU"/>
+    </sequence>
+  </complexType>
+  <!--Transacao 00804 - autorizacao de Ordem de Servico-->
+  <complexType name="ct_autorizacaoOrdemServico">
+    <sequence>
+      <element name="codigoUnimedSolicitante" type="ptu:st_cdUnimed"/>
+      <element name="numeroTransacaoUnimedSolicitante" type="ptu:st_nrIdent"/>
+      <element name="numeroTransacaoPrestadora" type="ptu:st_nrIdent"/>
+      <element name="numeroTransacaoOrigemBeneficiario" type="ptu:st_nrIdent"/>
+      <element name="dataValidadeAutorizacao" type="ptu:st_data2" minOccurs="0"/>
+      <element name="numeroVersaoPTU" type="ptu:st_versaoPTU"/>
+      <element name="mensagemLivre" type="ptu:st_dsMensagemLivre" minOccurs="0"/>
+      <element name="blocoServicoAutorizacaoOrdemServico" type="ptu:ct_blocoServicoAutorizacaoOrdemServico"/>
+    </sequence>
+  </complexType>
+  <!--Elementos que definem as mensagens PTU utilizadas no padrao SOAP (WSDLs)-->
+  <!--00600 - Elemento com a mensagem da Transacao de pedido de autorizacao.-->
+  <element name="pedidoAutorizacaoWS">
+    <annotation>
+      <documentation>00600 - Elemento com a mensagem da transacao de pedido de autorizacao.</documentation>
+    </annotation>
+    <complexType>
+      <sequence>
+        <element name="cabecalhoTransacao" type="ptu:ct_cabecalhoTransacao"/>
+        <element name="pedidoAutorizacao" type="ptu:ct_pedidoAutorizacao"/>
+        <element name="hash" type="ptu:st_hashArquivo"/>
+      </sequence>
+    </complexType>
+  </element>
+  <!--00605 - Elemento com a mensagem da transacao de complemento de pedido de autorizacao.-->
+  <element name="pedidoComplementoAutorizacaoWS">
+    <annotation>
+      <documentation>00605 - Elemento com a mensagem da transacao de complemento de pedido de autorizacao.</documentation>
+    </annotation>
+    <complexType>
+      <sequence>
+        <element name="cabecalhoTransacao" type="ptu:ct_cabecalhoTransacao"/>
+        <element name="pedidoComplementoAutorizacao" type="ptu:ct_pedidoComplementoAutorizacao"/>
+        <element name="hash" type="ptu:st_hashArquivo"/>
+      </sequence>
+    </complexType>
+  </element>
+  <!--00501 - Elemento com a mensagem da transacao de resposta de pedido de autorizacao.-->
+  <element name="respostaPedidoAutorizacaoWS">
+    <annotation>
+      <documentation>00501 - Elemento com a mensagem da transacao de resposta de pedido de autorizacao</documentation>
+    </annotation>
+    <complexType>
+      <sequence>
+        <element name="cabecalhoTransacao" type="ptu:ct_cabecalhoTransacao"/>
+        <element name="respostaPedidoAutorizacao" type="ptu:ct_respostaPedidoAutorizacao"/>
+        <element name="hash" type="ptu:st_hashArquivo"/>
+      </sequence>
+    </complexType>
+  </element>
+  <!--00302 - Elemento com a mensagem da transacao de pedido de insistencia.-->
+  <element name="pedidoInsistenciaWS">
+    <annotation>
+      <documentation>00302 - Elemento com a mensagem da transacao de pedido de insistencia.</documentation>
+    </annotation>
+    <complexType>
+      <sequence>
+        <element name="cabecalhoTransacao" type="ptu:ct_cabecalhoTransacao"/>
+        <element name="pedidoInsistencia" type="ptu:ct_pedidoInsistencia"/>
+        <element name="hash" type="ptu:st_hashArquivo"/>
+      </sequence>
+    </complexType>
+  </element>
+  <!--00309 - Elemento com a mensagem da transacao de confirmacao-->
+  <element name="confirmacaoWS">
+    <annotation>
+      <documentation>00309 - Elemento com a mensagem da transacao de confirmacao.</documentation>
+    </annotation>
+    <complexType>
+      <sequence>
+        <element name="cabecalhoTransacao" type="ptu:ct_cabecalhoTransacao"/>
+        <element name="confirmacao" type="ptu:ct_confirmacao"/>
+        <element name="hash" type="ptu:st_hashArquivo"/>
+      </sequence>
+    </complexType>
+  </element>
+  <!--00404 - Elemento com a mensagem da transacao de resposta de auditoria.-->
+  <element name="respostaAuditoriaWS">
+    <annotation>
+      <documentation>00404 - Elemento com a mensagem da transacao de resposta de auditoria.</documentation>
+    </annotation>
+    <complexType>
+      <sequence>
+        <element name="cabecalhoTransacao" type="ptu:ct_cabecalhoTransacao"/>
+        <element name="respostaAuditoria" type="ptu:ct_respostaAuditoria"/>
+        <element name="hash" type="ptu:st_hashArquivo"/>
+      </sequence>
+    </complexType>
+  </element>
+  <!--00311 - Elemento com a mensagem da transacao de cancelamento-->
+  <element name="cancelamentoWS">
+    <annotation>
+      <documentation>00311 - Elemento com a mensagem da transacao de cancelamento.</documentation>
+    </annotation>
+    <complexType>
+      <sequence>
+        <element name="cabecalhoTransacao" type="ptu:ct_cabecalhoTransacao"/>
+        <element name="cancelamento" type="ptu:ct_cancelamento"/>
+        <element name="hash" type="ptu:st_hashArquivo"/>
+      </sequence>
+    </complexType>
+  </element>
+  <!--00412 - Elemento com a mensagem da transacao de consulta de dados do beneficiario.-->
+  <element name="consultaDadosBeneficiarioWS">
+    <annotation>
+      <documentation>00412 - Elemento com a mensagem da transacao de consulta de dados do beneficiario.</documentation>
+    </annotation>
+    <complexType>
+      <sequence>
+        <element name="cabecalhoTransacao" type="ptu:ct_cabecalhoTransacao"/>
+        <element name="consultaDadosBeneficiario" type="ptu:ct_consultaDadosBeneficiario"/>
+        <element name="hash" type="ptu:st_hashArquivo"/>
+      </sequence>
+    </complexType>
+  </element>
+  <!--00413 - Elemento com a mensagem da transacao de resposta da consulta de dados do beneficiario.-->
+  <element name="respostaConsultaDadosBeneficiarioWS">
+    <annotation>
+      <documentation>00413 - Elemento com a mensagem da transacao de consulta de dados do beneficiario.</documentation>
+    </annotation>
+    <complexType>
+      <sequence>
+        <element name="cabecalhoTransacao" type="ptu:ct_cabecalhoTransacao"/>
+        <element name="respostaConsultaDadosBeneficiario" type="ptu:ct_respostaConsultaDadosBeneficiario"/>
+        <element name="hash" type="ptu:st_hashArquivo"/>
+      </sequence>
+    </complexType>
+  </element>
+  <!--00418 - Elemento com a mensagem da transacao de consulta de dados do prestador.-->
+  <element name="consultaDadosPrestadorWS">
+    <annotation>
+      <documentation>00418 - Elemento com a mensagem da transacao de consulta de dados do prestador.</documentation>
+    </annotation>
+    <complexType>
+      <sequence>
+        <element name="cabecalhoTransacao" type="ptu:ct_cabecalhoTransacao"/>
+        <element name="consultaDadosPrestador" type="ptu:ct_consultaDadosPrestador"/>
+        <element name="hash" type="ptu:st_hashArquivo"/>
+      </sequence>
+    </complexType>
+  </element>
+  <!--00419 - Elemento com a mensagem da transacao de resposta da consulta de dados do prestador.-->
+  <element name="respostaConsultaDadosPrestadorWS">
+    <annotation>
+      <documentation>00419 - Elemento com a mensagem da transacao de resposta de consulta de dados do prestador.</documentation>
+    </annotation>
+    <complexType>
+      <sequence>
+        <element name="cabecalhoTransacao" type="ptu:ct_cabecalhoTransacao"/>
+        <element name="respostaConsultaDadosPrestador" type="ptu:ct_respostaConsultaDadosPrestador"/>
+        <element name="hash" type="ptu:st_hashArquivo"/>
+      </sequence>
+    </complexType>
+  </element>
+  <!--00806 - Elemento com a mensagem da transacao de ordem de servico.-->
+  <element name="ordemServicoWS">
+    <annotation>
+      <documentation>00806 - Elemento com a mensagem da transacao de ordem de servico.</documentation>
+    </annotation>
+    <complexType>
+      <sequence>
+        <element name="cabecalhoTransacao" type="ptu:ct_cabecalhoTransacao"/>
+        <element name="ordemServico" type="ptu:ct_ordemServico"/>
+        <element name="hash" type="ptu:st_hashArquivo"/>
+      </sequence>
+    </complexType>
+  </element>
+  <!--00807 - Elemento com a mensagem da transacao de resposta de ordem de servico.-->
+  <element name="respostaOrdemServicoWS">
+    <annotation>
+      <documentation>00807 - Elemento com a mensagem da transacao resposta de ordem de servico.</documentation>
+    </annotation>
+    <complexType>
+      <sequence>
+        <element name="cabecalhoTransacao" type="ptu:ct_cabecalhoTransacao"/>
+        <element name="respostaOrdemServico" type="ptu:ct_respostaOrdemServico"/>
+        <element name="hash" type="ptu:st_hashArquivo"/>
+      </sequence>
+    </complexType>
+  </element>
+  <!--00310 - Elemento com a mensagem da erro inesperado.-->
+  <element name="erroInesperadoWS">
+    <annotation>
+      <documentation>00310 - Elemento com a mensagem da transacao de erro inesperado.</documentation>
+    </annotation>
+    <complexType>
+      <sequence>
+        <element name="cabecalhoTransacao" type="ptu:ct_cabecalhoTransacao"/>
+        <element name="erroInesperado" type="ptu:ct_erroInesperado"/>
+        <element name="hash" type="ptu:st_hashArquivo"/>
+      </sequence>
+    </complexType>
+  </element>
+  <!--00430 - Elemento com a mensagem da transacao de requisicao de contagem de beneficiarios-->
+  <element name="requisicaoContagemBeneficiariosWS">
+    <annotation>
+      <documentation>00430 - Elemento com a mensagem da transacao de requisicao de contagem de beneficiarios</documentation>
+    </annotation>
+    <complexType>
+      <sequence>
+        <element name="cabecalhoTransacao" type="ptu:ct_cabecalhoTransacao"/>
+        <element name="requisicaoContagemBeneficiarios" type="ptu:ct_requisicaoContagemBeneficiarios"/>
+        <element name="hash" type="ptu:st_hashArquivo"/>
+      </sequence>
+    </complexType>
+  </element>
+  <!--00431 - Elemento com a mensagem de resposta da transacao de requisicao de contagem de beneficiarios-->
+  <element name="respostaRequisicaoContagemBeneficiariosWS">
+    <annotation>
+      <documentation>00431 - Elemento com a mensagem de resposta da transacao de requisicao de contagem de Beneficiarios</documentation>
+    </annotation>
+    <complexType>
+      <sequence>
+        <element name="cabecalhoTransacao" type="ptu:ct_cabecalhoTransacao"/>
+        <element name="respostaRequisicaoContagemBeneficiarios" type="ptu:ct_respostaRequisicaoContagemBeneficiarios"/>
+        <element name="hash" type="ptu:st_hashArquivo"/>
+      </sequence>
+    </complexType>
+  </element>
+  <!--00360 - Elemento com a mensagem da transacao de status da transacao-->
+  <element name="statusTransacaoWS">
+    <annotation>
+      <documentation>00360 - Elemento com a mensagem da transacao de status transacao</documentation>
+    </annotation>
+    <complexType>
+      <sequence>
+        <element name="cabecalhoTransacao" type="ptu:ct_cabecalhoTransacao"/>
+        <element name="statusTransacao" type="ptu:ct_statusTransacao"/>
+        <element name="hash" type="ptu:st_hashArquivo"/>
+      </sequence>
+    </complexType>
+  </element>
+  <!--00361 - Elemento com a mensagem de resposta da transacao de Status da transacao-->
+  <element name="respostaStatusTransacaoWS">
+    <annotation>
+      <documentation>00361 - Elemento com a mensagem de resposta da transacao status da transacao</documentation>
+    </annotation>
+    <complexType>
+      <sequence>
+        <element name="cabecalhoTransacao" type="ptu:ct_cabecalhoTransacao"/>
+        <element name="respostaStatusTransacao" type="ptu:ct_respostaStatusTransacao"/>
+        <element name="hash" type="ptu:st_hashArquivo"/>
+      </sequence>
+    </complexType>
+  </element>
+  <!--00700 - Elemento com a mensagem da transacao de comunicacao de Decurso de Prazo-->
+  <element name="comunicacaoDecursoPrazoWS">
+    <annotation>
+      <documentation>00700 - Elemento com a mensagem da transacao de comunicacao de decurso de prazo</documentation>
+    </annotation>
+    <complexType>
+      <sequence>
+        <element name="cabecalhoTransacao" type="ptu:ct_cabecalhoTransacao"/>
+        <element name="comunicacaoDecursoPrazo" type="ptu:ct_comunicacaoDecursoPrazo"/>
+        <element name="hash" type="ptu:st_hashArquivo"/>
+      </sequence>
+    </complexType>
+  </element>
+  <!--00750 - Elemento com a mensagem da transacao de comunicacao de internacao ou alta do beneficiario-->
+  <element name="comunicacaoInternacaoAltaWS">
+    <annotation>
+      <documentation>00750 - Elemento com a mensagem da transacao de comunicacao de internacao ou alta do beneficiario.</documentation>
+    </annotation>
+    <complexType>
+      <sequence>
+        <element name="cabecalhoTransacao" type="ptu:ct_cabecalhoTransacao"/>
+        <element name="comunicacaoInternacaoAlta" type="ptu:ct_comunicacaoInternacaoAlta"/>
+        <element name="hash" type="ptu:st_hashArquivo"/>
+      </sequence>
+    </complexType>
+  </element>
+  <!--00804 - Elemento com a mensagem de autorizacao de Ordem de Servico-->
+  <element name="autorizacaoOrdemServicoWS">
+    <annotation>
+      <documentation>00804 - Elemento com a mensagem da transacao de autorizacao de Ordem de Servico.</documentation>
+    </annotation>
+    <complexType>
+      <sequence>
+        <element name="cabecalhoTransacao" type="ptu:ct_cabecalhoTransacao"/>
+        <element name="autorizacaoOrdemServico" type="ptu:ct_autorizacaoOrdemServico"/>
+        <element name="hash" type="ptu:st_hashArquivo"/>
+      </sequence>
+    </complexType>
+  </element>
+  <!--Transacao de Consulta do PTU A1100-->
+  <element name="consultaA1100WS">
+    <annotation>
+      <documentation>Elemento com a mensagem da transacao de consulta do A1100</documentation>
+    </annotation>
+    <complexType>
+      <sequence>
+        <element name="cabecalho" type="ptu:ct_cabecalhoA1100"/>
+        <element name="consultaA1100" type="ptu:ct_consulta"/>
+        <element name="hash" type="ptu:st_hashArquivo"/>
+      </sequence>
+    </complexType>
+  </element>
+  <!--Transacao de Resposta do PTU A1101-->
+  <element name="respostaA1100WS">
+    <annotation>
+      <documentation>A1100 - Elemento com a mensagem de resposta da transacao do A1100</documentation>
+    </annotation>
+    <complexType>
+      <sequence>
+        <element name="cabecalho" type="ptu:ct_cabecalhoA1101"/>
+        <element name="respostaA1100" type="ptu:ct_respostaA1101" minOccurs="0" maxOccurs="unbounded"/>
+        <element name="hash" type="ptu:st_hashArquivo"/>
+      </sequence>
+    </complexType>
+  </element>
+  <!--Mensagem de Falha-->
+  <element name="FaultWS">
+    <annotation>
+      <documentation>Mensagem de Falha</documentation>
+    </annotation>
+    <complexType>
+      <sequence>
+        <element name="fault" type="ptu:st_FaultMessage"/>
+        <element name="hash" type="ptu:st_hashArquivo"/>
+      </sequence>
+    </complexType>
+  </element>
+</schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>https://wsdadmin.unimed.coop.br/wsdadmin/home/arquivos_ptu_91_pro/ptu_ComplexTypes-V91_00.xsd</con:url><con:content><![CDATA[<!--Projeto: PTU XML Volume II
+	Versão: V1_01_91
+	Revisão: 001
+	TargetNameSpace: http://ptu.unimed.coop.br/schemas/V91_00
+	
+	Autores: 
+	Unimed do Brasil-->
+<schema targetNamespace="http://ptu.unimed.coop.br/schemas/V91_00" elementFormDefault="qualified" xmlns="http://www.w3.org/2001/XMLSchema" xmlns:ptu="http://ptu.unimed.coop.br/schemas/V91_00">
+  <include schemaLocation="ptu_SimpleTypes-V91_00.xsd"/>
+  <!--cabeçalho de todas as transações especificadas no PTU-->
+  <complexType name="ct_cabecalhoTransacao">
+    <sequence>
+      <element name="codigoTransacao" type="ptu:st_cdTrans"/>
+      <element name="codigoUnimedPrestadora" type="ptu:st_cdUnimed"/>
+      <element name="codigoUnimedOrigemBeneficiario" type="ptu:st_cdUnimed"/>
+    </sequence>
+  </complexType>
+  <!--Identificador do beneficiário (carteirinha)-->
+  <complexType name="ct_identificacaoBeneficiario">
+    <sequence>
+      <element name="codigoUnimed" type="ptu:st_cdUnimed"/>
+      <!--Códgo de identificação do beneficiário, incluindo o dígto verificador-->
+      <element name="codigoIdentificacao" type="ptu:st_idBenef"/>
+    </sequence>
+  </complexType>
+  <!--Identificador do prestador-->
+  <complexType name="ct_identificacaoPrestador">
+    <sequence>
+      <element name="codigoUnimed" type="ptu:st_cdUnimed"/>
+      <element name="codigoPrestador" type="ptu:st_cdPrest"/>
+    </sequence>
+  </complexType>
+  <!--Identificador do Prestador Solicitante-->
+  <complexType name="ct_identificacaoPrestadorSolicit">
+    <sequence>
+      <element name="codigoUnimed" type="ptu:st_cdUnimed" minOccurs="0"/>
+      <element name="codigoPrestador" type="ptu:st_cdPrest" minOccurs="0"/>
+      <element name="nomePrestadorSolic" type="ptu:st_nomeProSolic"/>
+      <element name="siglaConselho" type="ptu:st_siglaConselho"/>
+      <element name="numeroConselho" type="ptu:st_numeroConselhoRegional"/>
+      <element name="unidadeFederativa" type="ptu:st_unidadeFederativa"/>
+      <element name="numeroCBO" type="ptu:st_numeroCBO"/>
+    </sequence>
+  </complexType>
+  <!--Identificador do Prestador Executante-->
+  <complexType name="ct_identificacaoPrestadorExecut">
+    <sequence>
+      <element name="codigoUnimed" type="ptu:st_cdUnimed"/>
+      <element name="codigoPrestador" type="ptu:st_cdPrest"/>
+      <element name="nomePrestador" type="ptu:st_nome"/>
+      <element name="tpRedeMIN" type="ptu:st_tpRedeMIN"/>
+      <element name="numeroCBO" type="ptu:st_numeroCBO" minOccurs="0"/>
+    </sequence>
+  </complexType>
+  <!--Identificador do Prestador Executante no Complemento e Ordem de Serviço-->
+  <complexType name="ct_identificacaoPrestadorExecutComp">
+    <sequence>
+      <element name="codigoUnimed" type="ptu:st_cdUnimed"/>
+      <element name="codigoPrestador" type="ptu:st_cdPrest"/>
+      <element name="numeroCBO" type="ptu:st_numeroCBO" minOccurs="0"/>
+    </sequence>
+  </complexType>
+  <!--Identificador do Profissional Solicitante Anexos-->
+  <complexType name="ct_identificacaoProfissionalSolic">
+    <sequence>
+      <element name="nomeProfissional" type="ptu:st_nomeProSolic" minOccurs="1"/>
+      <element name="numeroTelefone" type="ptu:st_nrTelefone" minOccurs="1"/>
+      <element name="enderecoEmail" type="ptu:st_endEmail" minOccurs="0"/>
+    </sequence>
+  </complexType>
+  <!--Identificador de serviço-->
+  <complexType name="ct_servico">
+    <sequence>
+      <element name="sqitem" type="ptu:st_sqitem"/>
+      <element name="tipoTabela" type="ptu:st_tpTabela"/>
+      <element name="codigoServico" type="ptu:st_cdServico"/>
+    </sequence>
+  </complexType>
+  <!--Identificador de uma transação a qual  solicita um ou mais serviços-->
+  <complexType name="ct_pedidoServico">
+    <sequence>
+      <element name="servico" type="ptu:ct_servico"/>
+      <element name="quantidadeServico" type="ptu:st_qtServico"/>
+      <element name="descricaoServico" type="ptu:st_dsServico" minOccurs="0"/>
+      <element name="valor" type="ptu:st_valorMonetario" minOccurs="0"/>
+      <element name="codigoAnvisa" type="ptu:st_cdAnvisa" minOccurs="0"/>
+      <element name="referenciaMaterialFabricante" type="ptu:st_cdRefFab" minOccurs="0"/>
+      <element name="tpAnexo" type="ptu:st_tpAnexo"/>
+      <element name="dataProv" type="ptu:st_data2" minOccurs="0"/>
+      <element name="totalDosagem" type="ptu:st_totalDosagem" minOccurs="0"/>
+      <element name="unMedicamento" type="ptu:st_unMedicamento" minOccurs="0"/>
+      <element name="cdViaAdmin" type="ptu:st_cdViaAdmin" minOccurs="0"/>
+      <element name="qtFrequencia" type="ptu:st_qtFrequencia" minOccurs="0"/>
+      <element name="tpOrdem" type="ptu:st_tpOrdem" minOccurs="0"/>
+    </sequence>
+  </complexType>
+  <!--Identificador de uma transação a qual  autoriza um ou mais serviços-->
+  <complexType name="ct_servicoAutorizado">
+    <sequence>
+      <element name="servico" type="ptu:ct_servico"/>
+      <element name="quantidadeAutorizada" type="ptu:st_qtServico"/>
+      <element name="descricaoServico" type="ptu:st_dsServico" minOccurs="0"/>
+    </sequence>
+  </complexType>
+  <!--resposta a um serviço solicitado-->
+  <complexType name="ct_respostaPedidoServico">
+    <sequence>
+      <element name="servico">
+        <complexType>
+          <complexContent>
+            <extension base="ptu:ct_servico">
+              <sequence>
+                <element name="descricaoServico" type="ptu:st_dsServico" minOccurs="0"/>
+              </sequence>
+            </extension>
+          </complexContent>
+        </complexType>
+      </element>
+      <element name="quantidadeAutorizada" type="ptu:st_qtServico" minOccurs="0"/>
+      <element name="mensagensEspecificas" minOccurs="0">
+        <complexType>
+          <sequence>
+            <element name="mensagem" type="ptu:st_cdMensEspec" maxOccurs="5"/>
+            <element name="descricaoMensagemEspec" type="ptu:st_dsMensagem" minOccurs="0"/>
+          </sequence>
+        </complexType>
+      </element>
+    </sequence>
+  </complexType>
+  <!--Representa o bloco de serviços que está sendo solicitado-->
+  <complexType name="ct_blocoServicoPedido">
+    <sequence>
+      <element name="pedidoServico" type="ptu:ct_pedidoServico" maxOccurs="unbounded"/>
+    </sequence>
+  </complexType>
+  <!--Representa o bloco de serviços que está sendo solicitado-->
+  <complexType name="ct_blocoServicoAutorizado">
+    <sequence>
+      <element name="servicoAutorizado" type="ptu:ct_pedidoServico" maxOccurs="unbounded"/>
+    </sequence>
+  </complexType>
+  <!--Representa o bloco de Dados Anexo Quimioterapia que está sendo solicitado-->
+  <complexType name="ct_dadosAnexoQuimio">
+    <sequence>
+      <element name="descricaoDiagCitHist" type="ptu:st_descricaoDiagCitHist" minOccurs="0"/>
+      <element name="informacoesRelevantes" type="ptu:st_infoRelev" minOccurs="0"/>
+      <element name="planoTerapeutico" type="ptu:st_planoTerapeutico" minOccurs="1"/>
+      <element name="dsQuimio" type="ptu:st_dsObservacao" minOccurs="0"/>
+      <element name="alturaBenef" type="ptu:st_alturaBenef"/>
+      <element name="pesoBenef" type="ptu:st_pesoBenef"/>
+      <element name="supCorp" type="ptu:st_supCorp"/>
+      <element name="dataDiag" type="ptu:st_data2" minOccurs="0"/>
+      <element name="cdCID" type="ptu:st_cdCID" minOccurs="0" maxOccurs="4"/>
+      <element name="estadTumor" type="ptu:st_estadTumor"/>
+      <element name="cdFinalidade" type="ptu:st_cdFinalidade"/>
+      <element name="cdEcog" type="ptu:st_cdEcog"/>
+      <element name="tpQuimio" type="ptu:st_tpQuimio"/>
+      <element name="numeroCiclos" type="ptu:st_numeroCiclos"/>
+      <element name="cicloAtual" type="ptu:st_cicloAtual"/>
+      <element name="intervaloCiclos" type="ptu:st_intervaloCiclos"/>
+      <element name="dsCirurgia" type="ptu:st_dsCirurgia" minOccurs="0"/>
+      <element name="dtCirurgia" type="ptu:st_data2" minOccurs="0"/>
+      <element name="dsAreaIrrad" type="ptu:st_dsAreaIrrad" minOccurs="0"/>
+      <element name="dtIrrad" type="ptu:st_data2" minOccurs="0"/>
+      <element name="clMetastase" type="ptu:st_clMetastase" minOccurs="0"/>
+      <element name="clNodulo" type="ptu:st_clNodulo" minOccurs="0"/>
+      <element name="clTumor" type="ptu:st_clTumor" minOccurs="0"/>
+      <element name="qtDiasCicloAtual" type="ptu:st_qtDiasCicloAtual" minOccurs="0"/>
+      <element name="ProfissionalSolicitanteQuimio" type="ptu:ct_identificacaoProfissionalSolic" minOccurs="1"/>
+    </sequence>
+  </complexType>
+  <!--Representa o bloco de Dados Anexo Radioterapia que está sendo solicitado-->
+  <complexType name="ct_dadosAnexoRadio">
+    <sequence>
+      <element name="descricaoDiagCitHist" type="ptu:st_descricaoDiagCitHist" minOccurs="0"/>
+      <element name="informacoesRelevantes" type="ptu:st_infoRelev" minOccurs="0"/>
+      <element name="dsRadio" type="ptu:st_dsObservacao" minOccurs="0"/>
+      <element name="dataDiag" type="ptu:st_data2" minOccurs="0"/>
+      <element name="cdCID" type="ptu:st_cdCID" minOccurs="0" maxOccurs="4"/>
+      <element name="estadTumor" type="ptu:st_estadTumor"/>
+      <element name="cdFinalidade" type="ptu:st_cdFinalidade"/>
+      <element name="cdEcog" type="ptu:st_cdEcog"/>
+      <element name="cdDiagImg" type="ptu:st_cdDiagImg" minOccurs="0"/>
+      <element name="qtCampos" type="ptu:st_qtCampos"/>
+      <element name="qtDoseDia" type="ptu:st_qtDoseDia"/>
+      <element name="qtDoseTotal" type="ptu:st_qtDoseTotal"/>
+      <element name="qtDiasTratamento" type="ptu:st_qtDiasTratamento"/>
+      <element name="dtPrevAdmin" type="ptu:st_data2"/>
+      <element name="dsCirurgia" type="ptu:st_dsCirurgia" minOccurs="0"/>
+      <element name="dtCirurgia" type="ptu:st_data2" minOccurs="0"/>
+      <element name="dsQuimio" type="ptu:st_dsQuimio" minOccurs="0"/>
+      <element name="dtQuimio" type="ptu:st_data2" minOccurs="0"/>
+      <element name="ProfissionalSolicitanteRadio" type="ptu:ct_identificacaoProfissionalSolic" minOccurs="1"/>
+    </sequence>
+  </complexType>
+  <!--Representa o bloco de Dados Anexo OPME que está sendo solicitado-->
+  <complexType name="ct_dadosAnexoOPME">
+    <sequence>
+      <element name="dsOPME" type="ptu:st_dsObservacao" minOccurs="0"/>
+      <element name="justificativaTecnica" type="ptu:st_justificativaTecnica" minOccurs="1"/>
+      <element name="especMatSolic" type="ptu:st_especMatSolic" minOccurs="0"/>
+      <element name="ProfissionalSolicitanteOPME" type="ptu:ct_identificacaoProfissionalSolic" minOccurs="1"/>
+    </sequence>
+  </complexType>
+  <!--Representa o bloco de serviços da resposta do pedido de autorizacao-->
+  <complexType name="ct_blocoServicoRespostaPedidoAutorizacao">
+    <sequence>
+      <element name="respostaPedidoServico" maxOccurs="unbounded">
+        <complexType>
+          <complexContent>
+            <extension base="ptu:ct_respostaPedidoServico">
+              <sequence>
+                <element name="indicaAutorizacao" type="ptu:st_idAutoriz"/>
+              </sequence>
+            </extension>
+          </complexContent>
+        </complexType>
+      </element>
+    </sequence>
+  </complexType>
+  <!--Bloco de Serviços - Resposta de Requisição de Ordem de Serviço-->
+  <complexType name="ct_servicoAceito">
+    <sequence>
+      <element name="servico" type="ptu:ct_servico"/>
+      <element name="quantidadeAutorizada" type="ptu:st_qtServico" minOccurs="0"/>
+      <element name="idStatus" type="ptu:st_idStatusOS"/>
+      <element name="mensagensErro" minOccurs="0">
+        <complexType>
+          <sequence>
+            <element name="codMensagemErro" type="ptu:st_cdMensEspec" maxOccurs="5"/>
+          </sequence>
+        </complexType>
+      </element>
+      <element name="descricaoMensagemEspec" type="ptu:st_dsMensagem" minOccurs="0"/>
+    </sequence>
+  </complexType>
+  <!--Bloco de Serviços - Resposta de Requisição de Ordem de Serviço-->
+  <complexType name="ct_blocoServicoAceito">
+    <sequence>
+      <element name="servicoAceito" type="ptu:ct_servicoAceito" maxOccurs="unbounded"/>
+    </sequence>
+  </complexType>
+  <!--Representa o bloco de serviços da resposta de auditoria-->
+  <complexType name="ct_blocoServicoRespostaAuditoria">
+    <sequence>
+      <element name="respostaPedidoServico" maxOccurs="unbounded">
+        <complexType>
+          <complexContent>
+            <extension base="ptu:ct_respostaPedidoServico">
+              <sequence>
+                <element name="indicaAutorizacaoAuditoria" type="ptu:st_idAutorizAudit"/>
+              </sequence>
+            </extension>
+          </complexContent>
+        </complexType>
+      </element>
+    </sequence>
+  </complexType>
+  <!--Representa o bloco de serviços da resposta de auditoria-->
+  <complexType name="ct_blocoServicoRespostaStatus">
+    <sequence>
+      <element name="respostaPedidoServico" maxOccurs="unbounded">
+        <complexType>
+          <complexContent>
+            <extension base="ptu:ct_respostaPedidoServico">
+              <sequence>
+                <element name="identificacaoResposta" type="ptu:st_idResposta"/>
+              </sequence>
+            </extension>
+          </complexContent>
+        </complexType>
+      </element>
+    </sequence>
+  </complexType>
+  <!--Representa o bloco de serviços da autorização de ordem de serviço-->
+  <complexType name="ct_blocoServicoAutorizacaoOrdemServico">
+    <sequence>
+      <element name="respostaPedidoServico" maxOccurs="unbounded">
+        <complexType>
+          <complexContent>
+            <extension base="ptu:ct_respostaPedidoServico">
+              <sequence>
+                <element name="indicaAutorizacaoAuditoria" type="ptu:st_idAutorizAudit"/>
+              </sequence>
+            </extension>
+          </complexContent>
+        </complexType>
+      </element>
+    </sequence>
+  </complexType>
+  <!--Representa a estrutra de agrupamento de beneficiários-->
+  <complexType name="ct_gruposBeneficiarios">
+    <sequence>
+      <element name="qtBeneficiarios" type="ptu:st_qtBeneficiarios"/>
+    </sequence>
+  </complexType>
+  <!--Representa a estrutura de detalhamento de beneficiários - Pessoa Física-->
+  <complexType name="ct_beneficiariosPessoaFisica">
+    <sequence>
+      <element name="situacao" type="ptu:ct_gruposBeneficiarios"/>
+    </sequence>
+  </complexType>
+  <!--Representa a estrutura de detalhamento de beneficiários - Pessoa Jurídica-->
+  <complexType name="ct_beneficiariosPessoaJuridica">
+    <sequence>
+      <element name="situacao" type="ptu:ct_gruposBeneficiarios"/>
+    </sequence>
+  </complexType>
+  <!--Representa a data de referência para a transação da contagem de beneficiários-->
+  <complexType name="ct_dataReferencia">
+    <sequence>
+      <element name="anoReferencia" type="ptu:st_anoReferencia"/>
+      <element name="mesReferencia" type="ptu:st_mesReferencia"/>
+    </sequence>
+  </complexType>
+  <!--Conselho Profissional-->
+  <complexType name="ct_conselhoProfissional">
+    <sequence>
+      <element name="siglaConselhoRequisitante" type="ptu:st_siglaConselho"/>
+      <element name="numeroConselhoRequisitante" type="ptu:st_numeroConselhoRegional"/>
+      <element name="unidadeFederativaRequisitante" type="ptu:st_unidadeFederativa"/>
+    </sequence>
+  </complexType>
+  <!--Comunicacao de Internacao ou Alta-->
+  <complexType name="ct_comunicacaoInternacaoAlta">
+    <sequence>
+      <element name="numeroTransacaoPrestadora" type="ptu:st_nrIdent"/>
+      <element name="identificacaoBeneficiario">
+        <complexType>
+          <complexContent>
+            <extension base="ptu:ct_identificacaoBeneficiario">
+              <sequence>
+                <element name="identificacaoBiometrica" type="ptu:st_idBenefBiometria" minOccurs="0"/>
+              </sequence>
+            </extension>
+          </complexContent>
+        </complexType>
+      </element>
+      <element name="idRN" type="ptu:st_simNao"/>
+      <element name="dataEvento" type="ptu:st_data2"/>
+      <element name="tpEvento" type="ptu:st_tpEvento"/>
+      <element name="motivoEncerramento" type="ptu:st_motivoEncerramento" minOccurs="0"/>
+      <element name="tpInternacao" type="ptu:st_tpInternacao" minOccurs="0"/>
+      <element name="token" type="ptu:st_token" minOccurs="0"/>
+      <element name="numeroVersaoPTU" type="ptu:st_versaoPTU"/>
+    </sequence>
+  </complexType>
+  <!--Cabeçalho do PTU A1100-->
+  <complexType name="ct_cabecalhoA1100">
+    <sequence>
+      <element name="codigoTransacao" type="ptu:st_cdTrans"/>
+      <element name="codigoUnimedSolicitante" type="ptu:st_cdUnimed"/>
+    </sequence>
+  </complexType>
+  <!--Cabeçalho do PTU A1101-->
+  <complexType name="ct_cabecalhoA1101">
+    <sequence>
+      <element name="codigoTransacao" type="ptu:st_cdTrans"/>
+    </sequence>
+  </complexType>
+  <!--Cabeçalho do PTU A1100-->
+  <complexType name="ct_consulta">
+    <sequence>
+      <element name="dataDiaSolicitado" type="ptu:st_data2"/>
+      <element name="numeroVersaoPTU" type="ptu:st_versaoPTU"/>
+    </sequence>
+  </complexType>
+  <!--Resposta do PTU A1100-->
+  <complexType name="ct_respostaA1101">
+    <sequence>
+      <element name="codigoUnimedExecutora" type="ptu:st_cdUnimed"/>
+      <element name="codigoUnimedOrigem" type="ptu:st_cdUnimed"/>
+      <element name="numeroTransacaoPrestadora" type="ptu:st_nrIdent"/>
+      <element name="numeroTransacaoOrigemBeneficiario" type="ptu:st_nrIdent"/>
+      <element name="numeroTransacaoReferencia" type="ptu:st_nrIdent" minOccurs="0"/>
+      <element name="identificacaoBeneficiario" type="ptu:ct_identificacaoBeneficiario"/>
+      <element name="dataRespWSD" type="ptu:st_data1"/>
+      <element name="IdStBenef" type="ptu:st_IdStBenef"/>
+      <element name="numeroVersaoPTU" type="ptu:st_versaoPTU"/>
+      <element name="blocoServicos" type="ptu:ct_blocoServicosA1100" minOccurs="1" maxOccurs="unbounded"/>
+    </sequence>
+  </complexType>
+  <!--Bloco de Servicos do A1100-->
+  <complexType name="ct_blocoServicosA1100">
+    <sequence>
+      <element name="servico" type="ptu:ct_servico"/>
+      <element name="quantidadeServico" type="ptu:st_qtServico" minOccurs="0"/>
+      <element name="idRespostaWsd" type="ptu:st_IdRespWsd"/>
+      <element name="codigoMensagemEspecifica" type="ptu:st_cdMensEspec" minOccurs="0"/>
+    </sequence>
+  </complexType>
+</schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>https://wsdadmin.unimed.coop.br/wsdadmin/home/arquivos_ptu_91_pro/ptu_SimpleTypes-V91_00.xsd</con:url><con:content><![CDATA[<!--Projeto: PTU XML Volume II
+	Versao: V1_01_91
+	Revisao: 001
+	TargetNameSpace: http://ptu.unimed.coop.br/schemas/V91_00
+	
+	Autores: 
+	Unimed do Brasil-->
+<schema targetNamespace="http://ptu.unimed.coop.br/schemas/V91_00" elementFormDefault="qualified" xmlns="http://www.w3.org/2001/XMLSchema" xmlns:ptu="http://ptu.unimed.coop.br/schemas/V91_00">
+  <!--Codigo de identificacao de biometria do beneficiario-->
+  <simpleType name="st_idBenefBiometria">
+    <restriction base="base64Binary">
+      <maxLength value="999"/>
+    </restriction>
+  </simpleType>
+  <!--Codigo de identificacao da transacao-->
+  <simpleType name="st_cdTrans">
+    <restriction base="string">
+      <enumeration value="00600"/>
+      <enumeration value="00605"/>
+      <enumeration value="00501"/>
+      <enumeration value="00302"/>
+      <enumeration value="00309"/>
+      <enumeration value="00404"/>
+      <enumeration value="00311"/>
+      <enumeration value="00412"/>
+      <enumeration value="00413"/>
+      <enumeration value="00418"/>
+      <enumeration value="00419"/>
+      <enumeration value="00806"/>
+      <enumeration value="00807"/>
+      <enumeration value="00310"/>
+      <enumeration value="00430"/>
+      <enumeration value="00431"/>
+      <enumeration value="00360"/>
+      <enumeration value="00361"/>
+      <enumeration value="00804"/>
+      <enumeration value="00700"/>
+      <enumeration value="00750"/>
+      <enumeration value="01100"/>
+      <enumeration value="01101"/>
+      <!--00600 - Pedido de Autorizacao-->
+      <!--00605 - Pedido de Complemento de Autorizacao-->
+      <!--00501 - Resposta de Pedido de Autorizacao-->
+      <!--00302 - Pedido de Insistencia-->
+      <!--00309 - Confirmacao-->
+      <!--00404 - Resposta de Auditoria-->
+      <!--00311 - Cancelamento-->
+      <!--00412 - Consulta de Dados do Beneficiario-->
+      <!--00413 - Resposta de Consulta de Dados do Beneficiario-->
+      <!--00418 - Consulta Dados do Prestador-->
+      <!--00419 - Resposta de Consulta de Dados do Prestador-->
+      <!--00806 - Ordem de Servico-->
+      <!--00807 - Resposta de Ordem de Servico-->
+      <!--00310 - Erro Inesperado-->
+      <!--00430 - Requisicao de Contagem de Beneficiarios-->
+      <!--00431 - Resposta de Requisicao de Contagem de Beneficiarios-->
+      <!--00360 - Status da Transacao-->
+      <!--00361 - Resposta do Status da Transacao-->
+      <!--00804 - Autorizacao de Ordem de Servico-->
+      <!--00700 - Comunicacao de Decurso de Prazo-->
+      <!--00750 - Elemento com a mensagem da transacao de comunicacao de internacao ou alta do beneficiario-->
+      <!--01100 - Consulta  A1100-->
+      <!--01101 - Resposta A1100-->
+    </restriction>
+  </simpleType>
+  <!--Codigo de Unimed-->
+  <simpleType name="st_cdUnimed">
+    <restriction base="integer">
+      <totalDigits value="4"/>
+    </restriction>
+  </simpleType>
+  <!--Numero de identificacao da transacao-->
+  <simpleType name="st_nrIdent">
+    <restriction base="integer">
+      <totalDigits value="10"/>
+    </restriction>
+  </simpleType>
+  <!--Codigo de identificacao do beneficiario, incluindo digito verificador, sendo o codigo da unimed colocado em campo a parte-->
+  <simpleType name="st_idBenef">
+    <restriction base="string">
+      <pattern value="[0-9]{13}"/>
+    </restriction>
+  </simpleType>
+  <!--Numero do codigo internacional da doenca-->
+  <simpleType name="st_cdCID">
+    <restriction base="string">
+      <pattern value="[A-Z][0-9]{2}[0-9]?"/>
+      <!--Composto por uma letra e dois digitos de preenchimento obrigatorio e adicionalmente um digito opcional-->
+    </restriction>
+  </simpleType>
+  <!--Codigo Alto Custo-->
+  <simpleType name="st_tpRedeMIN">
+    <restriction base="integer">
+      <enumeration value="1"/>
+      <enumeration value="2"/>
+      <enumeration value="3"/>
+      <!--1 = Basica-->
+      <!--2 = Especial (Tabela Propria)-->
+      <!--3 = Master (Alto Custo)-->
+    </restriction>
+  </simpleType>
+  <!--Numero CBO-->
+  <simpleType name="st_numeroCBO">
+    <restriction base="string">
+      <pattern value="[0-9]{6}"/>
+      <!--Conforme tabela X1 - PTU Anexo-->
+    </restriction>
+  </simpleType>
+  <!--Flag sim ou nao-->
+  <simpleType name="st_simNao">
+    <restriction base="string">
+      <enumeration value="S"/>
+      <enumeration value="N"/>
+      <enumeration value="X"/>
+      <!--X = Somente utilizado pelo WSD-->
+    </restriction>
+  </simpleType>
+  <!--Tipo de evento referente a comunicacao (internacao ou alta)-->
+  <simpleType name="st_tpEvento">
+    <restriction base="string">
+      <enumeration value="I"/>
+      <enumeration value="A"/>
+      <!--I = Inicio Internacao
+				 A = Alta-->
+    </restriction>
+  </simpleType>
+  <!--Motivo de encerramento (Conforme Tabela O Anexo 01)-->
+  <simpleType name="st_motivoEncerramento">
+    <restriction base="string">
+      <maxLength value="2"/>
+    </restriction>
+  </simpleType>
+  <!--Nome do Beneficiario-->
+  <simpleType name="st_nome">
+    <restriction base="string">
+      <maxLength value="25"/>
+    </restriction>
+  </simpleType>
+  <!--Nome do Beneficiario-->
+  <simpleType name="st_nomeSocial">
+    <restriction base="string">
+      <maxLength value="70"/>
+    </restriction>
+  </simpleType>
+  <!--Versao do PTU-->
+  <simpleType name="st_versaoPTU">
+    <restriction base="string">
+      <maxLength value="3"/>
+      <minLength value="3"/>
+      <pattern value="[0-9]{3}"/>
+    </restriction>
+  </simpleType>
+  <!--Complementar-->
+  <simpleType name="st_complementar">
+    <restriction base="string">
+      <maxLength value="2"/>
+    </restriction>
+  </simpleType>
+  <!--Tipo de Internacao-->
+  <simpleType name="st_tpInternacao">
+    <restriction base="integer">
+      <enumeration value="1"/>
+      <enumeration value="2"/>
+      <enumeration value="3"/>
+      <enumeration value="6"/>
+      <enumeration value="7"/>
+      <!--1 = Internacao Clinica-->
+      <!--2 = Internacao Cirurgica-->
+      <!--3 = Internacao Obstetrica-->
+      <!--6 = Internacao Pediatrica-->
+      <!--7 = Internacao Psiquiatrica-->
+    </restriction>
+  </simpleType>
+  <!--Tipo Acidente-->
+  <simpleType name="st_idAcidente">
+    <restriction base="integer">
+      <enumeration value="1"/>
+      <enumeration value="2"/>
+      <enumeration value="3"/>
+      <enumeration value="9"/>
+      <!--1 = Acidente de Trabalho-->
+      <!--2 = Acidente de Transito-->
+      <!--3 = Acidente Outros-->
+      <!--9 = Nao acidente-->
+    </restriction>
+  </simpleType>
+  <!--Tipo Anexo-->
+  <simpleType name="st_tpAnexo">
+    <restriction base="integer">
+      <enumeration value="1"/>
+      <enumeration value="2"/>
+      <enumeration value="3"/>
+      <enumeration value="9"/>
+      <!--1 = Indicador de Quimioterapia-->
+      <!--2 = Indicador de Radioterapia-->
+      <!--3 = Indicador de OPME-->
+      <!--9 = Nao anexo-->
+    </restriction>
+  </simpleType>
+  <!--Tipo Sexo-->
+  <simpleType name="st_tpSexo">
+    <restriction base="integer">
+      <enumeration value="1"/>
+      <enumeration value="3"/>
+      <!--1 = Masculino-->
+      <!--3 = Feminino-->
+    </restriction>
+  </simpleType>
+  <!--Indicador de Cobertura Especial-->
+  <simpleType name="st_tpCobertura">
+    <restriction base="integer">
+      <enumeration value="1"/>
+      <enumeration value="2"/>
+      <enumeration value="3"/>
+      <!--1 = Gestante-->
+      <!--2 = Pre-Operatorio-->
+      <!--3 = Pos-Operatorio-->
+    </restriction>
+  </simpleType>
+  <!--Classificacao de transacao para Saude Ocupacional-->
+  <simpleType name="st_saudeOcupacional">
+    <restriction base="integer">
+      <enumeration value="1"/>
+      <enumeration value="2"/>
+      <enumeration value="3"/>
+      <enumeration value="4"/>
+      <enumeration value="5"/>
+      <enumeration value="6"/>
+      <!--1 = Admissional-->
+      <!--2 = Demissional-->
+      <!--3 = Periodico-->
+      <!--4 = Retorno ao trabalho-->
+      <!--5 = Mudanca de funcao-->
+      <!--6 = Promocao a saude-->
+    </restriction>
+  </simpleType>
+  <!--Idade do Beneficiario-->
+  <simpleType name="st_nrIdade">
+    <restriction base="integer">
+      <totalDigits value="3"/>
+    </restriction>
+  </simpleType>
+  <!--Token Validacao do beneficiario-->
+  <simpleType name="st_token">
+    <restriction base="string">
+      <maxLength value="10"/>
+    </restriction>
+  </simpleType>
+  <!--Tipo Etapa Autorizacao-->
+  <simpleType name="st_tpetapaAutoriz">
+    <restriction base="integer">
+      <enumeration value="1"/>
+      <enumeration value="2"/>
+      <!--1 = Solicitacao de autorizacao previa-->
+      <!--2 = Solicitacao de autorizacao pelo prestador executante-->
+    </restriction>
+  </simpleType>
+  <!--Tipo Guia TISS que iniciou a autorizacao-->
+  <simpleType name="st_tpguia">
+    <restriction base="integer">
+      <enumeration value="1"/>
+      <enumeration value="2"/>
+      <enumeration value="3"/>
+      <!--1 = Consulta-->
+      <!--2 = SP/SADT-->
+      <!--3 = Internacao-->
+    </restriction>
+  </simpleType>
+  <!--Protocolo de Antedimento - refere-se ao numero gerado pela Unimed Origem e entregue ao beneficiario na Unimed Prestadora (RN 395)-->
+  <simpleType name="st_protocoloAtendimento">
+    <restriction base="string">
+      <maxLength value="20"/>
+      <pattern value="[0-9]{20}"/>
+    </restriction>
+  </simpleType>
+  <!--Nome do Profissional Solicitante-->
+  <simpleType name="st_nomeProSolic">
+    <restriction base="string">
+      <maxLength value="70"/>
+    </restriction>
+  </simpleType>
+  <!--Numero de Telefone do Profissional Solicitante-->
+  <simpleType name="st_nrTelefone">
+    <restriction base="integer">
+      <totalDigits value="11"/>
+    </restriction>
+  </simpleType>
+  <!--Endereco de E-mail do Profissional Solicitante-->
+  <simpleType name="st_endEmail">
+    <restriction base="string">
+      <maxLength value="60"/>
+    </restriction>
+  </simpleType>
+  <!--Codigo da Unimed na qual o Beneficiario sera atendido-->
+  <simpleType name="st_cdUnimedAtend">
+    <restriction base="integer">
+      <totalDigits value="04"/>
+    </restriction>
+  </simpleType>
+  <!--Origem da Resposta do Pedido de Autorizacao-->
+  <simpleType name="st_tpAutorizacao">
+    <restriction base="integer">
+      <enumeration value="1"/>
+      <enumeration value="2"/>
+      <!--1 = Unimed-->
+      <!--2 = WSD-->
+    </restriction>
+  </simpleType>
+  <!--Tipo de Acomodacao-->
+  <simpleType name="st_tpAcomodacao">
+    <restriction base="string">
+      <enumeration value="A"/>
+      <enumeration value="B"/>
+      <enumeration value="C"/>
+      <enumeration value="X"/>
+      <!--A = Coletiva-->
+      <!--B = Individual-->
+      <!--C = Nao se aplica-->
+      <!--X = Conversao PTU-->
+    </restriction>
+  </simpleType>
+  <!--sobrenome-->
+  <simpleType name="st_sobrenome">
+    <restriction base="string">
+      <maxLength value="10"/>
+    </restriction>
+  </simpleType>
+  <!--Numero do Cadastro de Pessoas Fisica-->
+  <simpleType name="st_numeroCPF">
+    <restriction base="integer">
+      <totalDigits value="11"/>
+    </restriction>
+  </simpleType>
+  <!--Numero do Cartao Nacional de Saude-->
+  <simpleType name="st_numeroCNS">
+    <restriction base="integer">
+      <totalDigits value="15"/>
+    </restriction>
+  </simpleType>
+  <!--nome abreviado empresa-->
+  <simpleType name="st_nomeEmpresa">
+    <restriction base="string">
+      <maxLength value="18"/>
+    </restriction>
+  </simpleType>
+  <!--nome do plano de saude-->
+  <simpleType name="st_nomePlano">
+    <restriction base="string">
+      <maxLength value="20"/>
+    </restriction>
+  </simpleType>
+  <!--nome do prestador-->
+  <simpleType name="st_nomePrestador">
+    <restriction base="string">
+      <maxLength value="40"/>
+    </restriction>
+  </simpleType>
+  <!--cnpj ou cpf Prestador-->
+  <simpleType name="st_cnpjCpf">
+    <restriction base="integer">
+      <totalDigits value="15"/>
+    </restriction>
+  </simpleType>
+  <!--sigla do conselho regional do prestador de servico-->
+  <simpleType name="st_siglaConselho">
+    <restriction base="string">
+      <enumeration value="COREN"/>
+      <enumeration value="CRESS"/>
+      <enumeration value="CRBM"/>
+      <enumeration value="CREFITO"/>
+      <enumeration value="CRF"/>
+      <enumeration value="CREFONO"/>
+      <enumeration value="CRM"/>
+      <enumeration value="CRN"/>
+      <enumeration value="CRO"/>
+      <enumeration value="CRP"/>
+      <enumeration value="OUT"/>
+      <enumeration value="CRBIO"/>
+      <enumeration value="CREF"/>
+      <enumeration value="CRMV"/>
+      <enumeration value="CRTR"/>
+      <!--COREN = Conselho Regional de Enfermagem-->
+      <!--CRESS = Conselho Regional de Servico Social-->
+      <!--CRBM = Conselho Regional de Biomedicina-->
+      <!--CREFITO = Conselho Regional de Fisioterapia e Terapia Ocupacional-->
+      <!--CRF = Conselho Regional de Farmacia-->
+      <!--CREFONO = Conselho Regional de Fonoaudiologia-->
+      <!--CRM = Conselho Regional de Medicina-->
+      <!--CRN = Conselho Regional de Nutricao-->
+      <!--CRO = Conselho Regional de Odontologia-->
+      <!--CRP = Conselho Regional de Psicologia-->
+      <!--OUT = Outros Conselhos-->
+      <!--CRBIO = Conselho Regional de Biologia-->
+      <!--CREF = Conselho Regional de Educacao Fisica-->
+      <!--CRMV = Conselho Regional de Medicina Veterinaria-->
+      <!--CRTR = Conselho Regional de Tecnicos em Radiologia-->
+    </restriction>
+  </simpleType>
+  <!--numero do cadastro do prestador no conselho regional-->
+  <simpleType name="st_numeroConselhoRegional">
+    <restriction base="string">
+      <maxLength value="15"/>
+    </restriction>
+  </simpleType>
+  <!--Unidade Federativa-->
+  <simpleType name="st_unidadeFederativa">
+    <restriction base="string">
+      <enumeration value="AC"/>
+      <enumeration value="AL"/>
+      <enumeration value="AM"/>
+      <enumeration value="AP"/>
+      <enumeration value="BA"/>
+      <enumeration value="CE"/>
+      <enumeration value="DF"/>
+      <enumeration value="ES"/>
+      <enumeration value="GO"/>
+      <enumeration value="MA"/>
+      <enumeration value="MG"/>
+      <enumeration value="MS"/>
+      <enumeration value="MT"/>
+      <enumeration value="PA"/>
+      <enumeration value="PB"/>
+      <enumeration value="PE"/>
+      <enumeration value="PI"/>
+      <enumeration value="PR"/>
+      <enumeration value="RJ"/>
+      <enumeration value="RN"/>
+      <enumeration value="RO"/>
+      <enumeration value="RR"/>
+      <enumeration value="RS"/>
+      <enumeration value="SC"/>
+      <enumeration value="SE"/>
+      <enumeration value="SP"/>
+      <enumeration value="TO"/>
+      <enumeration value="XX"/>
+      <!--AC = Acre-->
+      <!--AL = Alagoas-->
+      <!--AM = Amazonas-->
+      <!--AP = Amapa-->
+      <!--BA = Bahia-->
+      <!--CE = Ceara-->
+      <!--DF = Distrito Federal-->
+      <!--ES = Espirito Santo-->
+      <!--GO = Goias-->
+      <!--MA = Maranhao-->
+      <!--MG = Minas Gerais-->
+      <!--MS = Mato Grosso do Sul-->
+      <!--MT = Mato Grosso-->
+      <!--PA = Para-->
+      <!--PB = Paraiba-->
+      <!--PE = Pernambuco-->
+      <!--PI = Piaui-->
+      <!--PR = Parana-->
+      <!--RJ = Rio de Janeiro-->
+      <!--RN = Rio Grande do Norte-->
+      <!--RO = Rondonia-->
+      <!--RR = Roraima-->
+      <!--RS = Rio Grande do Sul-->
+      <!--SC = Santa Catarina-->
+      <!--SE = Sergipe-->
+      <!--SP = Sao Paulo-->
+      <!--TO = Tocantins-->
+      <!--XX = Conversao PTU-->
+    </restriction>
+  </simpleType>
+  <!--Indicacao Clinica-->
+  <simpleType name="st_indicacaoClinica">
+    <restriction base="string">
+      <maxLength value="999"/>
+    </restriction>
+  </simpleType>
+  <!--Mensagem de Erro-->
+  <simpleType name="st_mensagemErro">
+    <restriction base="string">
+      <maxLength value="999"/>
+    </restriction>
+  </simpleType>
+  <!--nome completo-->
+  <simpleType name="st_nomeCompleto">
+    <restriction base="string">
+      <maxLength value="120"/>
+    </restriction>
+  </simpleType>
+  <!--observacao-->
+  <simpleType name="st_dsObservacao">
+    <restriction base="string">
+      <maxLength value="999"/>
+    </restriction>
+  </simpleType>
+  <!--mensagem livre-->
+  <simpleType name="st_dsMensagemLivre">
+    <restriction base="string">
+      <maxLength value="999"/>
+    </restriction>
+  </simpleType>
+  <!--Codigo do Prestador-->
+  <simpleType name="st_cdPrest">
+    <restriction base="integer">
+      <totalDigits value="8"/>
+    </restriction>
+  </simpleType>
+  <!--codigo IBGE da cidade do escritorio, sede ou posto da Unimed-->
+  <simpleType name="st_cdIBGE">
+    <restriction base="integer">
+      <totalDigits value="7"/>
+    </restriction>
+  </simpleType>
+  <!--Codigo da Especialidade Medica-->
+  <simpleType name="st_cdEspec">
+    <restriction base="integer">
+      <enumeration value="71"/>
+      <enumeration value="2"/>
+      <enumeration value="3"/>
+      <enumeration value="54"/>
+      <enumeration value="7"/>
+      <enumeration value="9"/>
+      <enumeration value="78"/>
+      <enumeration value="8"/>
+      <enumeration value="11"/>
+      <enumeration value="14"/>
+      <enumeration value="80"/>
+      <enumeration value="12"/>
+      <enumeration value="13"/>
+      <enumeration value="56"/>
+      <enumeration value="76"/>
+      <enumeration value="74"/>
+      <enumeration value="75"/>
+      <enumeration value="17"/>
+      <enumeration value="18"/>
+      <enumeration value="77"/>
+      <enumeration value="21"/>
+      <enumeration value="22"/>
+      <enumeration value="23"/>
+      <enumeration value="60"/>
+      <enumeration value="26"/>
+      <enumeration value="28"/>
+      <enumeration value="29"/>
+      <enumeration value="31"/>
+      <enumeration value="79"/>
+      <enumeration value="61"/>
+      <enumeration value="35"/>
+      <enumeration value="36"/>
+      <enumeration value="32"/>
+      <enumeration value="33"/>
+      <enumeration value="30"/>
+      <enumeration value="34"/>
+      <enumeration value="62"/>
+      <enumeration value="63"/>
+      <enumeration value="37"/>
+      <enumeration value="38"/>
+      <enumeration value="40"/>
+      <enumeration value="42"/>
+      <enumeration value="43"/>
+      <enumeration value="81"/>
+      <enumeration value="44"/>
+      <enumeration value="45"/>
+      <enumeration value="46"/>
+      <enumeration value="47"/>
+      <enumeration value="48"/>
+      <enumeration value="66"/>
+      <enumeration value="50"/>
+      <enumeration value="51"/>
+      <enumeration value="68"/>
+      <enumeration value="52"/>
+      <enumeration value="53"/>
+      <enumeration value="99"/>
+      <!--Codigo 71 - Acupuntura - CFM - 1 - Sem area de atuacao-->
+      <!--Codigo 2 - Alergia e Imunologia - CFM - 2 - Alergia e Imunologia Pediatrica-->
+      <!--Codigo 3 - Anestesiologia - CFM - 3 - Dor-->
+      <!--Codigo 54 - Angiologia  - CFM - 4 - Angiorradiologia e Cirurgia Endovascular, Ecografia Vascular com DOPPLER, Radiologia Intervencionista e Angiorradiologia-->
+      <!--Codigo 7 - Cardiologia - CFM - 5 - Cardiologia Pediatrica, Ecocardiografia, Hemodinamica, Cardiologia Intervencionista, Eletrofisiologia Clinica Invasiva e Ergonometria.-->
+      <!--Codigo 9 - Cirurgia Cardiovascular - CFM - 6 - Sem area de atuacao-->
+      <!--Codigo 78 - Cirurgia da Mao - CFM - 7 - Sem area de atuacao-->
+      <!--Codigo 8 - Cirurgia da Cabeca e Pescoco - CFM - 8 - Cirurgia Cranio-Maxilo-Facial-->
+      <!--Codigo 11 - Cirurgia do Aparelho Digestivo - CFM - 9 - Cirurgia Videolaparoscopica, Endoscopia Digestiva e Nutricao Parenteral e Enteral.-->
+      <!--Codigo 14 - Cirurgia Geral - CFM - 10 - Cirurgia do Trauma e Cirurgia Videolaparoscopica-->
+      <!--Codigo 80 - Cirurgia Oncologica - CFM - 11 - Cirurgia do Trauma e Cirurgia Videolaparoscopica-->
+      <!--Codigo 12 - Cirurgia Pediatrica - CFM - 12 - Sem area de atuacao-->
+      <!--Codigo 13 - Cirurgia Plastica - CFM - 13 - Cirurgia Cranio-Maxilo-Facial e Tratamento de Queimados.-->
+      <!--Codigo 56 - Cirurgia Toracica - CFM - 14 - Endoscopia Respiratoria-->
+      <!--Codigo 76 - Cirurgia Vascular - CFM - 15 - Angiorradiologia e Cirurgia Endovascular, Ecografia Vascular com Doppler, Radiologia Intervencionista e Angiorradiologia-->
+      <!--Codigo 74 - Clinica Medica - CFM - 16 - Hansenologia e Medicina de Urgencia-->
+      <!--Codigo 75 - Coloproctologia - CFM - 17 - Cirurgia Videolaparoscopica e  Endoscopia Digestiva-->
+      <!--Codigo 17 - Dermatologia - CFM - 18 - Cirurgia Dermatologica, Cosmiatria e Hansenologia-->
+      <!--Codigo 18 - Endocrinologia e Metabologia - CFM - 19 - Endocrinologia Pediatrica-->
+      <!--Codigo 77 - Endoscopia - CFM - 20 - Endoscopia Digestiva e Endoscopia Respiratoria-->
+      <!--Codigo 21 - Gastroenterologia - CFM - 21 - Endoscopia Digestiva, Gastroenterologia Pediatrica, Hepatologia e Nutricao Parenteral e Enteral.-->
+      <!--Codigo 22 - Genetica Medica - CFM - 22 - Sem area de atuacao-->
+      <!--Codigo 23 - Geriatria - CFM - 23 - Sem area de atuacao-->
+      <!--Codigo 60 - Ginecologia e Obstetricia - CFM - 24 - Medicina Fetal, Reproducao Humana, Sexologia e Ultra-sonografia em ginecologia, Obstetricia, Endoscopia Ginecologica, Densitometria ossea e Mamografia.-->
+      <!--Codigo 26 - Hematologia e Hemoterapia - CFM - 25 - Hematologia e Hemoterapia Pediatrica e Transplante de medula ossea.-->
+      <!--Codigo 28 - Homeopatia - CFM - 26 - Sem area de atuacao-->
+      <!--Codigo 29 - Infectologia - CFM - 27 - Infectologia hospitalar, Infectologia Pediatrica e Hansenologia.-->
+      <!--Codigo 31 - Mastologia - CFM - 28 - Mamografia-->
+      <!--Codigo 79 - Medicina de emergencia - CFM - 29-->
+      <!--Codigo 61 - Medicina de Familia e Comunidade - CFM - 30 - Hansenologia-->
+      <!--Codigo 35 - Medicina do Trabalho - CFM - 31 - Sem area de atuacao-->
+      <!--Codigo 36 - Medicina do Trafego - CFM - 32 - Sem area de atuacao-->
+      <!--Codigo 32 - Medicina Esportiva - CFM - 33 - Sem area de atuacao-->
+      <!--Codigo 33 - Medicina Fisica e Reabilitacao - CFM - 34 - Neurofisiologia Clinica-->
+      <!--Codigo 30 - Medicina Intensiva - CFM - 35 - Medicina Intensiva Pediatrica e Nutricao Parenteral e Enteral.-->
+      <!--Codigo 34 - Medicina Legal - CFM - 36 - Sem area de atuacao-->
+      <!--Codigo 62 - Medicina Nuclear - CFM - 37 - Densitometria ossea-->
+      <!--Codigo 63 - Medicina Preventiva e Social - CFM - 38 - Hansenologia-->
+      <!--Codigo 37 - Nefrologia - CFM - 39 - Nefrologia Pediatrica-->
+      <!--Codigo 38 - Neurocirurgia - CFM - 40 - Cirurgia de Coluna, Neurofisiologia Clinica e Neurorradiologia.-->
+      <!--Codigo 40 - Neurologia - CFM - 41 - Atuacao Dor, Neurofisiologia Clinica, Neurologia Pediatrica, Hansenologia e Neurorradiologia-->
+      <!--Codigo 42 - Nutrologia - CFM - 42 - Nutricao Parenteral e Enteral, Nutrologia Pediatrica e Nutricao Parenteral e Enteral Pediatrica.-->
+      <!--Codigo 43 - Oftalmologia - CFM - 43 - Sem area de atuacao-->
+      <!--Codigo 81 - Oncologia Clinica - CFM - 44-->
+      <!--Codigo 44 - Ortopedia e Traumatologia - CFM - 45 - Cirurgia da coluna e Densitometria ossea-->
+      <!--Codigo 45 - Otorrinolaringologia - CFM - 46 - Cirurgia Cranio-Maxilo-Facial e Foniatria-->
+      <!--Codigo 46 - Patologia Clinica / Medicina Laboratorial - CFM - 48 - Sem area de atuacao-->
+      <!--Codigo 47 - Patologia - CFM - 47 - Citopatologia-->
+      <!--Codigo 48 - Pediatria - CFM - 49 - Alergia e Imunologia Pediatrica, Cardiologia Pediatrica, Endocrinologia Pediatrica, Gastroenterologia Pediatrica, Hematologia e Hemoterapia Pediatrica, Infectologia Pediatrica, Medicina do Adolescente, Medicina Intensiva Pediatrica, Nefrologia Pediatrica, Neonatologia, Neurologia Pediatrica, Nutrologia Pediatrica, Pneumologia Pediatrica e Reumatologia Pediatrica e Nutricao Parenteral e Enteral Pediatrica.-->
+      <!--Codigo 66 - Pneumologia - CFM - 50 - Endoscopia Respiratoria e Pneumologia Pediatrica-->
+      <!--Codigo 50 - Psiquiatria - CFM - 51 - Psicogeriatria, Psicoterapia, Psiquiatria da Infancia e da Adolescencia e Psiquiatria Forense-->
+      <!--Codigo 51 - Radiologia e Diagnostico por Imagem - CFM - 52 - Neurorradiologia, Radiologia Intervencionista e Angiorradiologia, Angiorradiologia e Cirurgia Endovascular-->
+      <!--Codigo 68 - Radioterapia - CFM - 53 - Sem area de atuacao-->
+      <!--Codigo 52 - Reumatologia - CFM - 54 - Reumatologia Pediatrica e Densitometria ossea-->
+      <!--Codigo 53 - Urologia - CFM - 55 - Sem area de atuacao-->
+      <!--Codigo 99 - Demais Medicos Cooperados-->
+    </restriction>
+  </simpleType>
+  <!--quantidade de dias de evolucao da patologia-->
+  <simpleType name="st_qtDiasEvolDoenca">
+    <restriction base="integer">
+      <totalDigits value="5"/>
+    </restriction>
+  </simpleType>
+  <!--data-->
+  <simpleType name="st_data2">
+    <restriction base="date"/>
+  </simpleType>
+  <simpleType name="st_data1">
+    <restriction base="dateTime"/>
+  </simpleType>
+  <!--Codigo do Servico-->
+  <simpleType name="st_cdServico">
+    <restriction base="string">
+      <pattern value="([0-9])*"/>
+      <minLength value="8"/>
+      <maxLength value="10"/>
+    </restriction>
+  </simpleType>
+  <!--identifica o tipo de tabela utilizado no servico medico-->
+  <simpleType name="st_tpTabela">
+    <restriction base="string">
+      <enumeration value="18"/>
+      <enumeration value="19"/>
+      <enumeration value="20"/>
+      <enumeration value="22"/>
+      <enumeration value="98"/>
+      <enumeration value="00"/>
+    </restriction>
+    <!--18 = TUSS _ Taxas hospitalares, diarias e gases medicinais
+				 19 = TUSS _ Materiais
+				 20 = TUSS - Medicamentos
+				 22 = TUSS _ Procedimentos e eventos em saude (medicina, odonto e demais areas de saude)
+				 98 = Tabela Propria de Pacotes 
+				 00 = Tabela Propria das Operadoras-->
+  </simpleType>
+  <!--Sequencia do Item-->
+  <simpleType name="st_sqitem">
+    <restriction base="integer">
+      <totalDigits value="2"/>
+      <minInclusive value="1"/>
+    </restriction>
+  </simpleType>
+  <!--Quantidade de um procedimento medico solicitado-->
+  <simpleType name="st_qtServico">
+    <restriction base="decimal">
+      <totalDigits value="9"/>
+      <fractionDigits value="4"/>
+      <!--aceita ate 3 inteiros e 4 decimais-->
+    </restriction>
+  </simpleType>
+  <!--descricao do procedimento-->
+  <simpleType name="st_dsServico">
+    <restriction base="string">
+      <maxLength value="80"/>
+    </restriction>
+  </simpleType>
+  <!--descricao do servico de Ortese, Protese e Materiais Especiais-->
+  <simpleType name="st_dsOPME">
+    <restriction base="string">
+      <maxLength value="80"/>
+    </restriction>
+  </simpleType>
+  <!--Valor Monetario-->
+  <simpleType name="st_valorMonetario">
+    <restriction base="decimal">
+      <totalDigits value="14"/>
+      <fractionDigits value="2"/>
+      <!--aceita ate 12 inteiros e 2 decimais-->
+    </restriction>
+  </simpleType>
+  <!--Codigo ANVISA do Material/Medicamento-->
+  <simpleType name="st_cdAnvisa">
+    <restriction base="string">
+      <maxLength value="15"/>
+    </restriction>
+  </simpleType>
+  <!--Referencia do Material no Fabricante-->
+  <simpleType name="st_cdRefFab">
+    <restriction base="string">
+      <maxLength value="60"/>
+    </restriction>
+  </simpleType>
+  <!--Descricao do diagnostico citopatologico e histopatologico-->
+  <simpleType name="st_descricaoDiagCitHist">
+    <restriction base="string">
+      <maxLength value="999"/>
+    </restriction>
+  </simpleType>
+  <!--Plano Terapeutico proposto pelo profissional solicitante-->
+  <simpleType name="st_planoTerapeutico">
+    <restriction base="string">
+      <maxLength value="999"/>
+    </restriction>
+  </simpleType>
+  <!--Relatorio profissional embasando a solicitacao-->
+  <simpleType name="st_justificativaTecnica">
+    <restriction base="string">
+      <maxLength value="999"/>
+    </restriction>
+  </simpleType>
+  <!--Descricao do Material Solicitado-->
+  <simpleType name="st_especMatSolic">
+    <restriction base="string">
+      <maxLength value="999"/>
+    </restriction>
+  </simpleType>
+  <!--Informacoes relevantes a serem fornecidas pelo profissional solicitante para esclarecimento do caso.-->
+  <simpleType name="st_infoRelev">
+    <restriction base="string">
+      <maxLength value="999"/>
+    </restriction>
+  </simpleType>
+  <!--Altura do Beneficiario-->
+  <simpleType name="st_alturaBenef">
+    <restriction base="decimal">
+      <totalDigits value="5"/>
+      <fractionDigits value="2"/>
+      <!--aceita ate 3 inteiros e 2 decimais-->
+    </restriction>
+  </simpleType>
+  <!--Peso do Beneficiario-->
+  <simpleType name="st_pesoBenef">
+    <restriction base="decimal">
+      <totalDigits value="5"/>
+      <fractionDigits value="2"/>
+      <!--aceita ate 3 inteiros e 2 decimais-->
+    </restriction>
+  </simpleType>
+  <!--Superficie Corporal do Beneficiario-->
+  <simpleType name="st_supCorp">
+    <restriction base="decimal">
+      <totalDigits value="4"/>
+      <fractionDigits value="2"/>
+      <!--aceita ate 2 inteiros e 2 decimais-->
+    </restriction>
+  </simpleType>
+  <!--Estadiamento do Tumor-->
+  <simpleType name="st_estadTumor">
+    <restriction base="string">
+      <enumeration value="0"/>
+      <enumeration value="1"/>
+      <enumeration value="2"/>
+      <enumeration value="3"/>
+      <enumeration value="4"/>
+      <enumeration value="5"/>
+      <!--0= 0
+				 1= I
+				 2= II
+				 3= III
+				 4= IV
+				 5 = Nao se aplica-->
+    </restriction>
+  </simpleType>
+  <!--Classificacao internacional sobre capacidade funcional do beneficiario-->
+  <simpleType name="st_cdEcog">
+    <restriction base="string">
+      <enumeration value="0"/>
+      <enumeration value="1"/>
+      <enumeration value="2"/>
+      <enumeration value="3"/>
+      <enumeration value="4"/>
+      <!--0=Totalmente ativo capaz de exercer, sem restricoes, todas as atividades que exercia antes do diagnostico.
+				 1 = Nao exerce atividade fisica extenuante, porem e capaz de realizar um trabalho leve em casa ou no escritorio.
+				 2 = Caminha e e capaz de exercer as atividades de autocuidado, mas e incapaz de realizar qualquer atividade de trabalho.Permanece 		fora do leito mais de 50% das horas de vigilia.
+				3 =Capacidade de autocuidado limitada. Permanece no leito ou cadeira mais de 50% das horas de vigilia.
+				 4 = Completamente dependente. Nao e capaz de exercer qualquer atividade de autocuidado. Totalmente confinado a
+cama ou cadeira.-->
+    </restriction>
+  </simpleType>
+  <!--Tipo de Quimioterapia-->
+  <simpleType name="st_tpQuimio">
+    <restriction base="integer">
+      <enumeration value="1"/>
+      <enumeration value="2"/>
+      <enumeration value="3"/>
+      <enumeration value="4"/>
+      <!--1= Primeira Linha
+				 2= Segunda Linha
+				 3= Terceira Linha
+				 4= Outras Linhas-->
+    </restriction>
+  </simpleType>
+  <!--Numero de ciclos previstos-->
+  <simpleType name="st_numeroCiclos">
+    <restriction base="integer">
+      <totalDigits value="02"/>
+      <minInclusive value="1"/>
+    </restriction>
+  </simpleType>
+  <!--Ciclo Atual-->
+  <simpleType name="st_cicloAtual">
+    <restriction base="integer">
+      <totalDigits value="02"/>
+      <minInclusive value="1"/>
+    </restriction>
+  </simpleType>
+  <!--Intervalo entre ciclos-->
+  <simpleType name="st_intervaloCiclos">
+    <restriction base="integer">
+      <totalDigits value="03"/>
+      <minInclusive value="1"/>
+    </restriction>
+  </simpleType>
+  <!--Descricao da cirurgia-->
+  <simpleType name="st_dsCirurgia">
+    <restriction base="string">
+      <maxLength value="40"/>
+    </restriction>
+  </simpleType>
+  <!--Descricao da area irradiada-->
+  <simpleType name="st_dsAreaIrrad">
+    <restriction base="string">
+      <maxLength value="40"/>
+    </restriction>
+  </simpleType>
+  <!--Codigo da finalidade do tratamento-->
+  <simpleType name="st_cdFinalidade">
+    <restriction base="integer">
+      <enumeration value="1"/>
+      <enumeration value="2"/>
+      <enumeration value="3"/>
+      <enumeration value="4"/>
+      <enumeration value="5"/>
+      <!--1= Curativa
+				 2= Neoadjuvante
+				 3= Adjuvante
+				 4= Paliativa
+				 5= Controle-->
+    </restriction>
+  </simpleType>
+  <!--Dosagem total do medicamento no ciclo atual.-->
+  <simpleType name="st_totalDosagem">
+    <restriction base="decimal">
+      <totalDigits value="7"/>
+      <fractionDigits value="2"/>
+      <!--aceita ate 5 inteiros e 2 decimais-->
+    </restriction>
+  </simpleType>
+  <!--Codigo da unidade de medida do medicamento-->
+  <simpleType name="st_unMedicamento">
+    <restriction base="integer"/>
+  </simpleType>
+  <!--Quantidade de dias do ciclo atual do tratamento quimioterapico.-->
+  <simpleType name="st_qtDiasCicloAtual">
+    <restriction base="integer">
+      <totalDigits value="03"/>
+      <minInclusive value="1"/>
+    </restriction>
+  </simpleType>
+  <!--Classificacao da metastase-->
+  <simpleType name="st_clMetastase">
+    <restriction base="integer">
+      <enumeration value="1"/>
+      <enumeration value="2"/>
+      <enumeration value="3"/>
+      <enumeration value="8"/>
+      <enumeration value="9"/>
+      <!--1= M1
+				 2= M0
+				 3= Mx
+				 8=Nao se aplica
+				 9=Sem informacao-->
+    </restriction>
+  </simpleType>
+  <!--Classificacao do nodulo-->
+  <simpleType name="st_clNodulo">
+    <restriction base="integer">
+      <enumeration value="1"/>
+      <enumeration value="2"/>
+      <enumeration value="3"/>
+      <enumeration value="4"/>
+      <enumeration value="5"/>
+      <enumeration value="8"/>
+      <enumeration value="9"/>
+      <!--1= N1
+				 2= N2
+				 3= N3
+				 4= N0
+				 5= Nx
+				 8=Nao se aplica
+				 9=Sem informacao-->
+    </restriction>
+  </simpleType>
+  <!--Classificacao do tumor-->
+  <simpleType name="st_clTumor">
+    <restriction base="integer">
+      <enumeration value="1"/>
+      <enumeration value="2"/>
+      <enumeration value="3"/>
+      <enumeration value="4"/>
+      <enumeration value="5"/>
+      <enumeration value="6"/>
+      <enumeration value="7"/>
+      <enumeration value="8"/>
+      <enumeration value="9"/>
+      <!--1= T1
+				 2= T2
+				 3= T3
+				 4= T4
+				 5= T0
+				 6= Tis
+				 7= Tx
+				 8=Nao se aplica
+				 9=Sem informacao-->
+    </restriction>
+  </simpleType>
+  <!--Tecnologia Utilizada para diagnostico de imagem-->
+  <simpleType name="st_cdDiagImg">
+    <restriction base="integer">
+      <enumeration value="1"/>
+      <enumeration value="2"/>
+      <enumeration value="3"/>
+      <enumeration value="4"/>
+      <enumeration value="5"/>
+      <enumeration value="6"/>
+      <!--1= Tomografia
+				 2= Ressonancia Magnetica
+				 3= Raios-X
+				 4= Outras
+				 5= Ultrassonografia
+				 6= PET-->
+    </restriction>
+  </simpleType>
+  <!--Quantidade de campos de irradiacao-->
+  <simpleType name="st_qtCampos">
+    <restriction base="integer">
+      <totalDigits value="03"/>
+      <minInclusive value="1"/>
+    </restriction>
+  </simpleType>
+  <!--Dose de radioterapico, expressa em Gy, por dia de tratamento-->
+  <simpleType name="st_qtDoseDia">
+    <restriction base="integer">
+      <totalDigits value="04"/>
+      <minInclusive value="1"/>
+    </restriction>
+  </simpleType>
+  <!--Dose total, expressa em Gy, a ser utilizada considerando o numero de dias e dosagem diaria-->
+  <simpleType name="st_qtDoseTotal">
+    <restriction base="integer">
+      <totalDigits value="04"/>
+      <minInclusive value="1"/>
+    </restriction>
+  </simpleType>
+  <!--Quantidade de dias de tratamento previstos pelo profissional solicitante-->
+  <simpleType name="st_qtDiasTratamento">
+    <restriction base="integer">
+      <totalDigits value="03"/>
+      <minInclusive value="1"/>
+    </restriction>
+  </simpleType>
+  <!--Descricao da Quimioterapia-->
+  <simpleType name="st_dsQuimio">
+    <restriction base="string">
+      <maxLength value="40"/>
+    </restriction>
+  </simpleType>
+  <!--Descricao do Servico-->
+  <simpleType name="st_dsServicoAnexo">
+    <restriction base="string">
+      <maxLength value="150"/>
+    </restriction>
+  </simpleType>
+  <!--Quantidade de doses procedimento-->
+  <simpleType name="st_qtDoses">
+    <restriction base="decimal">
+      <totalDigits value="5"/>
+      <fractionDigits value="2"/>
+      <!--aceita ate 3 inteiros e 2 decimais-->
+    </restriction>
+  </simpleType>
+  <!--Via Administracao-->
+  <simpleType name="st_cdViaAdmin">
+    <restriction base="string">
+      <enumeration value="01"/>
+      <enumeration value="02"/>
+      <enumeration value="03"/>
+      <enumeration value="04"/>
+      <enumeration value="05"/>
+      <enumeration value="06"/>
+      <enumeration value="07"/>
+      <enumeration value="08"/>
+      <enumeration value="09"/>
+      <enumeration value="10"/>
+      <enumeration value="11"/>
+      <enumeration value="12"/>
+      <enumeration value="13"/>
+      <enumeration value="14"/>
+      <enumeration value="15"/>
+      <enumeration value="16"/>
+      <enumeration value="17"/>
+      <enumeration value="18"/>
+      <enumeration value="19"/>
+      <enumeration value="20"/>
+      <enumeration value="21"/>
+      <enumeration value="22"/>
+      <enumeration value="23"/>
+      <enumeration value="24"/>
+      <enumeration value="25"/>
+      <enumeration value="26"/>
+      <enumeration value="27"/>
+      <enumeration value="28"/>
+      <enumeration value="29"/>
+      <enumeration value="30"/>
+      <enumeration value="31"/>
+      <enumeration value="32"/>
+      <enumeration value="33"/>
+      <enumeration value="34"/>
+      <enumeration value="35"/>
+      <!--01 = Bucal
+					02 = Capilar
+					03 = Dermatologica
+					04 = Epidural
+					05 = Gastrostomia/jejunostomia
+					06 = Inalatoria
+					07 = Intra- ossea
+					08 = Intra-arterial
+					09 = Intra-articular
+					10 = Intracardiaca
+					11 = Intradermica
+					12 = Intralesional
+					13 = Intramuscular
+					14 = Intraperitonial
+					15 = Intrapleural
+					16 = Intratecal
+					17 = Intratraqueal
+					18 = Intrauterina
+					19 = Intravenosa
+					20 = Intravesical
+					21 = Intravitrea
+					22 = Irrigacao
+					23 = Nasal
+					24 = Oftalmica
+					25 = Oral
+					26 = Otologica
+					27 = Retal
+					28 = Sonda enteral
+					29 = Sonda gastrica
+					30 = Subcutanea
+					31 = Sublingual
+					32 = Transdermica
+					33 = Uretral
+					34 = Vaginal
+					35 = Outras-->
+    </restriction>
+  </simpleType>
+  <!--Frequencia da administracao-->
+  <simpleType name="st_qtFrequencia">
+    <restriction base="integer">
+      <totalDigits value="2"/>
+    </restriction>
+  </simpleType>
+  <!--Tp Ordem-->
+  <simpleType name="st_tpOrdem">
+    <restriction base="integer">
+      <enumeration value="1"/>
+      <enumeration value="2"/>
+      <enumeration value="3"/>
+    </restriction>
+  </simpleType>
+  <!--Descricao do Motivo do Cancelamento-->
+  <simpleType name="st_dsMotivo">
+    <restriction base="string">
+      <maxLength value="999"/>
+    </restriction>
+  </simpleType>
+  <!--Rede de Atendimento-->
+  <simpleType name="st_cdRede">
+    <restriction base="string">
+      <maxLength value="04"/>
+    </restriction>
+  </simpleType>
+  <!--Identificador do plano-->
+  <simpleType name="st_idPlano">
+    <restriction base="integer">
+      <enumeration value="1"/>
+      <enumeration value="2"/>
+      <enumeration value="3"/>
+      <enumeration value="9"/>
+      <!--1 - Plano Nao Regulamentado-->
+      <!--2 - Plano Adaptado-->
+      <!--3 - Plano Regulamentado-->
+      <!--9 - Somente utilizado pelo WSD-->
+    </restriction>
+  </simpleType>
+  <!--Hash do arquivo-->
+  <simpleType name="st_hashArquivo">
+    <restriction base="string"/>
+  </simpleType>
+  <!--indica se uma solicitacao de autorizacao foi fornecida em um Pedido de Autorizacao-->
+  <simpleType name="st_idAutoriz">
+    <restriction base="integer">
+      <enumeration value="1"/>
+      <enumeration value="2"/>
+      <enumeration value="3"/>
+      <enumeration value="4"/>
+      <!--1 - negado-->
+      <!--2 - autorizado-->
+      <!--3 - pendente para autorizacao da empresa-->
+      <!--4 - pendente para auditoria-->
+    </restriction>
+  </simpleType>
+  <!--indica se uma solicitacao de autorizacao foi fornecida em um requisicao de Status da Transacao-->
+  <simpleType name="st_idResposta">
+    <restriction base="integer">
+      <enumeration value="1"/>
+      <enumeration value="2"/>
+      <enumeration value="3"/>
+      <enumeration value="4"/>
+      <enumeration value="5"/>
+      <!--1 - negado-->
+      <!--2 - autorizado-->
+      <!--3 - pendente para autorizacao da empresa-->
+      <!--4 - pendente para auditoria-->
+      <!--5 - Cancelado-->
+    </restriction>
+  </simpleType>
+  <!--indica se uma solicitacao de autorizacao foi fornecida em uma Resposta de Auditoria-->
+  <simpleType name="st_idAutorizAudit">
+    <restriction base="integer">
+      <enumeration value="1"/>
+      <enumeration value="2"/>
+      <!--1 - negado-->
+      <!--2 - autorizado-->
+    </restriction>
+  </simpleType>
+  <!--codigo da mensagem especifica de servico-->
+  <simpleType name="st_cdMensEspec">
+    <restriction base="integer">
+      <enumeration value="2001"/>
+      <enumeration value="2002"/>
+      <enumeration value="2003"/>
+      <enumeration value="2004"/>
+      <enumeration value="2005"/>
+      <enumeration value="2006"/>
+      <enumeration value="2007"/>
+      <enumeration value="2008"/>
+      <enumeration value="2009"/>
+      <enumeration value="2010"/>
+      <enumeration value="2011"/>
+      <enumeration value="2012"/>
+      <enumeration value="2013"/>
+      <enumeration value="2014"/>
+      <enumeration value="2015"/>
+      <enumeration value="2016"/>
+      <enumeration value="2017"/>
+      <enumeration value="2021"/>
+      <enumeration value="2022"/>
+      <enumeration value="2023"/>
+      <enumeration value="2024"/>
+      <enumeration value="2028"/>
+      <enumeration value="2030"/>
+      <enumeration value="2031"/>
+      <enumeration value="2038"/>
+      <enumeration value="2039"/>
+      <enumeration value="2041"/>
+      <enumeration value="2042"/>
+      <enumeration value="2044"/>
+      <enumeration value="2045"/>
+      <enumeration value="2046"/>
+      <enumeration value="2047"/>
+      <enumeration value="2049"/>
+      <enumeration value="2050"/>
+      <enumeration value="2051"/>
+      <enumeration value="2052"/>
+      <enumeration value="2053"/>
+      <enumeration value="2054"/>
+      <enumeration value="2055"/>
+      <enumeration value="2056"/>
+      <enumeration value="2057"/>
+      <enumeration value="2058"/>
+      <enumeration value="2059"/>
+      <enumeration value="2060"/>
+      <enumeration value="2061"/>
+      <enumeration value="2062"/>
+      <enumeration value="2063"/>
+      <enumeration value="2064"/>
+      <enumeration value="2065"/>
+      <enumeration value="2066"/>
+      <enumeration value="2067"/>
+      <enumeration value="2068"/>
+      <enumeration value="2069"/>
+      <enumeration value="2070"/>
+      <enumeration value="2071"/>
+      <enumeration value="2072"/>
+      <enumeration value="2073"/>
+      <!--Codigo 2001 - Unimed Solic. igual a Unimed Req-->
+      <!--Codigo 2002 - Unimed Serv. nao e' a Unimed acess.-->
+      <!--Codigo 2003 - Quant. Servico deve ser maior 0-->
+      <!--Codigo 2004 - Cadastro beneficiario com problemas-->
+      <!--Codigo 2005 - Servico Solicitado e de pre-existencia-->
+      <!--Codigo 2006 - Idade Benefic. acima idade limite-->
+      <!--Codigo 2007 - Problemas com financeiro do cliente-->
+      <!--Codigo 2008 - Benef. com atendimento Suspenso-->
+      <!--Codigo 2009 - Servico informado invalido-->
+      <!--Codigo 2010 - Serv. solic. nao possui cobertura-->
+      <!--Codigo 2011 - Servico invalido para o sexo do beneficiario-->
+      <!--Codigo 2012 - Procedimento solicitado invalido para a faixa etaria do cliente-->
+      <!--Codigo 2013 - Cobertura Benef. com idade inferior-->
+      <!--Codigo 2014 - Quant. Serv. Solic. acima da permitida-->
+      <!--Codigo 2015 - Quant. Serv. solic. acima coberta-->
+      <!--Codigo 2016 - Beneficiario esta cumprindo periodo de carencia para o procedimento-->
+      <!--Codigo 2017 - Cartao Vencido-->
+      <!--Codigo 2021 - Hospital nao informado-->
+      <!--Codigo 2022 - Codigo do CID invalido-->
+      <!--Codigo 2023 - Acomodacao nao Informada-->
+      <!--Codigo 2024 - Cliente nao possui cobertura para acomodacao solicitada-->
+      <!--Codigo 2028 - Cartao do beneficiario com problemas-->
+      <!--Codigo 2030 - Procedimentos mutuamente excludentes-->
+      <!--Codigo 2031 - Servico nao informado-->
+      <!--Codigo 2038 - Beneficiario c/data inclusao futura-->
+      <!--Codigo 2039 - Autorizacao nao e valida para complemento-->
+      <!--Codigo 2041 - Situacao da transacao invalida-->
+      <!--Codigo 2042 - Transacao nao pertence Unimed Solicit.-->
+      <!--Codigo 2044 - Usuario excluido-->
+      <!--Codigo 2045 - Cliente sem cobertura para prestador da rede Master-->
+      <!--Codigo 2046 - Empresa na modalidade de Custo Operacional - Necessita de autorizacao previa da contratante-->
+      <!--Codigo 2047 - Beneficiario esta cumprindo periodo de Cobertura Parcial Temporaria para o procedimento-->
+      <!--Codigo 2049 - Beneficiario nao esta cadastrado na operadora. Requer conferencia de dados-->
+      <!--Codigo 2050 - Nao existem evidencias cientificas que o indique para o caso especifico do paciente-->
+      <!--Codigo 2051 - Existem evidencias cientificas que nao o indicam para o caso especifico do paciente-->
+      <!--Codigo 2052 - Existem evidencias cientificas que o reconhecem como ineficaz para o caso especifico do paciente-->
+      <!--Codigo 2053 - O medicamento solicitado nao esta registrado e autorizado para o uso pela Agencia de vigilancia Sanitaria (ANVISA)-->
+      <!--Codigo 2054 - O medicamento solicitado nao esta autorizado. A pratica medica usual nao recomenda o uso medicamento para o caso especifico do paciente-->
+      <!--Codigo 2055 - O material medico nao esta registrado e autorizado para o uso pela Agencia de vigilancia Sanitaria (ANVISA)-->
+      <!--Codigo 2056 - O material medico solicitado nao esta autorizado. A pratica medica usual nao recomenda o uso material para o caso especifico do paciente-->
+      <!--Codigo 2057 - Procedimento nao previsto no rol de procedimentos editado pela Agencia Nacional de Saude Suplementar - ANS-->
+      <!--Codigo 2058 - Procedimento considerado experimental - Necessario parecer tecnico-->
+      <!--Codigo 2059 - Transacao original nao autorizada-->
+      <!--Codigo 2060 - Transacao original nao encontrada-->
+      <!--Codigo 2061 - Negado por ausencia de autorizacao empresa contratante-->
+      <!--Codigo 2062 - Negado por ausencia de informacao tecnica suficiente para analise da Auditoria Medica-->
+      <!--Codigo 2063 - Procedimento incluso no evento principal-->
+      <!--Codigo 2064 - Ausencia de justificativa tecnica-->
+      <!--Codigo 2065 - Conforme deliberacao do Colegio Nacional de Auditores-->
+      <!--Codigo 2066 - Material nao imprescindivel ao evento-->
+      <!--Codigo 2067 - Material de uso permanente-->
+      <!--Codigo 2068 - Sem cobertura para o prestador informado ou prestador de alto custo-->
+      <!--Codigo 2069 - Limite contratual excedido para terapias-->
+      <!--Codigo 2070 - Cliente sem cobertura para a rede Especial-->
+      <!--Codigo 2071 - Cliente fora da area de abrangencia contratual-->
+      <!--Codigo 2072 - Via do cartao invalida-->
+      <!--Codigo 2073 - Token invalido-->
+    </restriction>
+  </simpleType>
+  <!--Descricao do motivo da negativa-->
+  <simpleType name="st_dsMensagem">
+    <restriction base="string">
+      <maxLength value="500"/>
+    </restriction>
+  </simpleType>
+  <!--Tipo de abrangecia do plano-->
+  <simpleType name="st_tpAbrangencia">
+    <restriction base="integer">
+      <enumeration value="1"/>
+      <enumeration value="2"/>
+      <enumeration value="3"/>
+      <enumeration value="4"/>
+      <enumeration value="5"/>
+      <!--1 - Nacional-->
+      <!--2 - Regional A - Grupo de estados-->
+      <!--3 - Estadual-->
+      <!--4 - Regional B - Grupo de muncipios-->
+      <!--5 - Municipal-->
+    </restriction>
+  </simpleType>
+  <!--Codigo Local de atendimento-->
+  <simpleType name="st_cdLcat">
+    <restriction base="integer">
+      <totalDigits value="4"/>
+    </restriction>
+  </simpleType>
+  <!--Indica se a requisicao de ordem de servico foi aceita-->
+  <simpleType name="st_idStatusOS">
+    <restriction base="integer">
+      <enumeration value="1"/>
+      <enumeration value="2"/>
+      <!--1 - Recusado-->
+      <!--2 - Aceita-->
+    </restriction>
+  </simpleType>
+  <!--Codigo dos erros possiveis nas mensagens de erro-->
+  <simpleType name="st_codigoErro">
+    <restriction base="integer">
+      <enumeration value="4001"/>
+      <enumeration value="4002"/>
+      <enumeration value="4003"/>
+      <enumeration value="4004"/>
+      <enumeration value="4005"/>
+      <enumeration value="4006"/>
+      <enumeration value="4007"/>
+      <enumeration value="4008"/>
+      <enumeration value="4009"/>
+      <enumeration value="4010"/>
+      <enumeration value="4011"/>
+      <enumeration value="4012"/>
+      <enumeration value="4013"/>
+      <enumeration value="4014"/>
+      <enumeration value="4015"/>
+      <!--Codigo 4001 - Layout PTU de requisicao invalido-->
+      <!--Codigo 4002 - Layout PTU de resposta invalido-->
+      <!--Codigo 4003 - Erro na comunicacao do SCS com o autorizador da Unimed Destino-->
+      <!--Codigo 4004 - Unimed Destino da comunicacao nao esta configurada para responder On-Line-->
+      <!--Codigo 4005 - A Unimed utiliza versao de PTU incompativel com a transacao-->
+      <!--Codigo 4006 - Falha de comunicacao SCS Origem ou Destino-->
+      <!--Codigo 4007 - Falha de Comunicacao Socket, portas, TCP/IP-->
+      <!--Codigo 4008 - Unimed destino configurada como on-line-->
+      <!--Codigo 4009 - Pacote nao valido para trafegar no intercambio-->
+      <!--Codigo 4010 - Servico WebService inoperante-->
+      <!--Codigo 4011 - Nao permitido reenvio da transacao trafegada sem falha na comunicacao-->
+      <!--Codigo 4012 - Beneficiario inexistente ou inativo no CadBenef-->
+      <!--Codigo 4013 - Beneficiario vinculado a CNPJ bloqueado no CadBenef-->
+      <!--Codigo 4014 - Unimed Origem do beneficiario com atendimento suspenso no intercambio nacional por motivo de inadimplencia na Camara Nacional de Compensacao e Liquidacao-->
+      <!--Codigo 4015 - Número da Carteira Invalida-->
+    </restriction>
+  </simpleType>
+  <!--Identificador da Mensagem Confirmacao-->
+  <simpleType name="st_tpIdentificadorConfirmacao">
+    <restriction base="integer">
+      <enumeration value="1"/>
+      <enumeration value="2"/>
+      <enumeration value="3"/>
+      <enumeration value="4"/>
+      <!--1 = Confirmada 
+			     2 = Guia Inexistente 
+				 3 = Situacao Invalida
+				 4 = Autorizado pelo WSD-->
+    </restriction>
+  </simpleType>
+  <!--Status da Resposta-->
+  <simpleType name="st_stRetorno">
+    <restriction base="integer">
+      <enumeration value="1"/>
+      <enumeration value="2"/>
+      <enumeration value="3"/>
+      <!--1 = Resposta Fornecida-->
+      <!--2 = Resposta Negada por ausencia de vinculo-->
+      <!--3 = Data de Referencia fora do periodo previsto-->
+    </restriction>
+  </simpleType>
+  <!--Quantidade de Beneficiarios-->
+  <simpleType name="st_qtBeneficiarios">
+    <restriction base="integer">
+      <totalDigits value="10"/>
+    </restriction>
+  </simpleType>
+  <!--Ano Referencia para a solicitacao de contagem de Beneficiarios-->
+  <simpleType name="st_anoReferencia">
+    <restriction base="integer">
+      <totalDigits value="4"/>
+    </restriction>
+  </simpleType>
+  <!--Mes Referencia para solicitacao de contagem de Beneficiarios-->
+  <simpleType name="st_mesReferencia">
+    <restriction base="integer">
+      <minInclusive value="1"/>
+      <maxInclusive value="12"/>
+    </restriction>
+  </simpleType>
+  <!--Codigo de mensagem de erro especifica para transacoes de consulta (Beneficiario e Prestador)-->
+  <simpleType name="st_cdMensErroEspec">
+    <restriction base="integer">
+      <enumeration value="5001"/>
+      <enumeration value="5002"/>
+      <enumeration value="5003"/>
+      <!--5001 - Nenhum registro encontrado-->
+      <!--5002 - Problemas no Processamento-->
+      <!--5003 - Unimed off-line nao responde essa transacao-->
+    </restriction>
+  </simpleType>
+  <!--Identifica se a transacao foi recebida e processada-->
+  <simpleType name="st_Identificador">
+    <restriction base="integer">
+      <enumeration value="1"/>
+      <enumeration value="2"/>
+      <!--1 - Confirmada-->
+      <!--2 - Guia Inexistente-->
+    </restriction>
+  </simpleType>
+  <!--Versao da TISS-->
+  <simpleType name="st_nrVerTiss">
+    <restriction base="string">
+      <maxLength value="7"/>
+      <!--Ex.: 3.04.00-->
+    </restriction>
+  </simpleType>
+  <!--Indica se a autorizacao foi realizada por uma Unimed On-line ou Off-line-->
+  <simpleType name="st_IdStBenef">
+    <restriction base="integer">
+      <enumeration value="1"/>
+      <enumeration value="2"/>
+      <!--1 - Regra de Baixo Risco - Off-line (caso Origem Off-line)-->
+      <!--2 - Regra de Baixo Risco - Estudo (caso Origem On-line e resposta em estudo)-->
+    </restriction>
+  </simpleType>
+  <!--Indica o status da resposta do WSD-->
+  <simpleType name="st_IdRespWsd">
+    <restriction base="integer">
+      <enumeration value="1"/>
+      <enumeration value="2"/>
+      <enumeration value="3"/>
+      <!--1 - Negado-->
+      <!--2 - Autorizado-->
+      <!--3 - Cancelado pela operadora-->
+    </restriction>
+  </simpleType>
+  <!--Indica se a transacao foi aceita pelo WSD-->
+  <simpleType name="st_IdStatusWsd">
+    <restriction base="integer">
+      <enumeration value="1"/>
+      <enumeration value="2"/>
+      <!--1 - Confirmado-->
+      <!--2 - Arquivo nao disponivel-->
+    </restriction>
+  </simpleType>
+  <!--Arquivo A1100-->
+  <!--Numero de versao da transacao-->
+  <simpleType name="st_nrVerTra">
+    <restriction base="integer">
+      <totalDigits value="2"/>
+    </restriction>
+  </simpleType>
+  <!--Mensagens Fault.-->
+  <simpleType name="st_FaultMessage">
+    <restriction base="string">
+      <enumeration value="PeriodoInvalido"/>
+      <enumeration value="HashInvalido"/>
+      <enumeration value="EstruturaInvalida"/>
+      <enumeration value="ErroInesperado"/>
+    </restriction>
+  </simpleType>
+</schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part></con:definitionCache><con:endpoints><con:endpoint>https://wsdapi.unimed.coop.br/wsdintercambio/intercambioservices/ptu_V91_00/ConsultaDadosBeneficiario</con:endpoint></con:endpoints><con:operation id="b1469760-4da0-43c1-845d-4f5465127a73" isOneWay="false" action="" name="ConsultaDadosBeneficiarioOperation" bindingOperationName="ConsultaDadosBeneficiarioOperation" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="eedb47b2-a94b-418e-8cf6-cf412572ad4b" name="Request 1" sslKeystore="UNIMEDENCOSTADASERRARS.javaks" wssPasswordType=""><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting><con:setting id="WsdlSettings@enable-mtom">false</con:setting><con:setting id="com.eviware.soapui.impl.support.AbstractHttpRequest@follow-redirects">true</con:setting><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@wss-time-to-live"/></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>https://foundation-187168-ptu.datasul.cloudtotvs.com.br/htz-foundation/PtuInsuranceUserQueryWSv9100</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:v91="http://ptu.unimed.coop.br/schemas/V91_00">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <v91:consultaDadosBeneficiarioWS>
+         <v91:cabecalhoTransacao>
+            <v91:codigoTransacao>00412</v91:codigoTransacao>
+            <v91:codigoUnimedPrestadora>277</v91:codigoUnimedPrestadora>
+            <v91:codigoUnimedOrigemBeneficiario>260</v91:codigoUnimedOrigemBeneficiario>
+         </v91:cabecalhoTransacao>
+         <v91:consultaDadosBeneficiario>
+            <v91:numeroTransacaoPrestadora>1203529272</v91:numeroTransacaoPrestadora>
+            <v91:codigoUnimed>260</v91:codigoUnimed>
+            <v91:codigoIdentificacao>5302180000012</v91:codigoIdentificacao>
+            <v91:numeroVersaoPTU>091</v91:numeroVersaoPTU>
+         </v91:consultaDadosBeneficiario>
+         <v91:hash>9f3c7c403625296f78d404127a3ada18</v91:hash>
+      </v91:consultaDadosBeneficiarioWS>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://ptu.unimed.coop.br/consultadadosbeneficiario/webservices/V91_00/ConsultaDadosBeneficiarioPortType/ConsultaDadosBeneficiarioOperationRequest"/><con:wsrmConfig version="1.2"/></con:call></con:operation></con:interface><con:properties/><con:wssContainer><con:crypto><con:source>/home/vinicius/Downloads/romulo/crise_unimed260/UNIMEDENCOSTADASERRARS.javaks</con:source><con:password>uni$277</con:password><con:type>KEYSTORE</con:type></con:crypto><con:crypto><con:source>/home/vinicius/Downloads/romulo/crise_unimed260/UNIMEDENCOSTADASERRARS.javaks</con:source><con:password/><con:type>TRUSTSTORE</con:type></con:crypto></con:wssContainer><con:oAuth2ProfileContainer/><con:oAuth1ProfileContainer/><con:sensitiveInformation/></con:soapui-project>
